@@ -2,20 +2,20 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
     start_background.load("start.jpg");
     game_background.load("game.jpg");
     default_font.loadFont("joystix monospace.ttf", 70);
     small_font.loadFont("joystix monospace.ttf", 40);
     font.loadFont("joystix monospace.ttf", 20);
     
-    gui.setup();
-    slider.setup("position", 500, 0, 100);
+    user_input = "";
+    
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    
 }
 
 //--------------------------------------------------------------
@@ -25,6 +25,7 @@ void ofApp::draw(){
     }
     if(current_state == RUNNING){
         drawGameRunning();
+        
     }
     
 }
@@ -34,7 +35,11 @@ void ofApp::keyPressed(int key){
     if(current_state == START_SCREEN && key == '1'){
         current_state = RUNNING;
     }
-     
+    if(current_state == RUNNING){
+        user_input += (char) key;
+    }
+
+    
 }
 
 //--------------------------------------------------------------
@@ -84,10 +89,15 @@ void ofApp::drawGameStart(){
     
     default_font.drawString("Type Race", ofGetWindowWidth() / 6, ofGetWindowHeight() / 5);
     small_font.drawString("Press 1 to Start", ofGetWindowWidth() / 6, ofGetWindowHeight() / 4);
+    
 }
 
 void ofApp::drawGameRunning(){
-    //game_background.draw(0, 0, 1024, 768);
-    
-    font.drawStringCentered("Table", ofGetWindowHeight()/4, ofGetWindowWidth()/ 3);
+    game_background.draw(0, 0, 1024, 768);
+
+    font.drawStringCentered(words[0], ofGetWindowHeight(), ofGetWindowWidth()/ 2);
+    font.drawStringCentered(words[1], ofGetWindowHeight() / 1.5, ofGetWindowWidth()/ 2);
+    font.drawStringCentered(words[2], ofGetWindowHeight()/3.2, ofGetWindowWidth()/ 2);
+
+    default_font.drawString(user_input, ofGetWindowWidth()/5, ofGetWindowHeight() / 2);
 }

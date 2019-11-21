@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxCenteredTrueTypeFont.h"
-#inclue "ofxControlPlanel.h"
+#include "ofxControlPanel.h"
 
 class ofApp : public ofBaseApp{
     
@@ -23,6 +23,7 @@ private:
     ofxCenteredTrueTypeFont font;
     
     string user_input;
+    vector<string> words = {"University", "Cat", "Hello"};
 
     
     
