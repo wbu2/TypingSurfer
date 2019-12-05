@@ -119,7 +119,35 @@ void ofApp::drawCar(int lane){
     }
     
 }
-
+void ofApp::drawLane(){
+    /*
+     assign each lane a random word
+     loop through each lane words
+     if word == user_input then change word and change car direction
+     word count: 370103
+     */
+    int Random;
+    
+    if(lanes[0].GetWord().size() == 0){
+        for(int i = 0; i<lanes.size(); ++i){
+            Random = std::rand() % reader.GetFileWords().size();
+            lanes[i].SetWord(reader.GetFileWords()[Random]);
+            drawDisplayWords(i+1, lanes[i].GetWord());
+            drawUserInput(player.GetLane());
+        }
+    }else{
+        for(int i = 0; i<lanes.size(); ++i){
+            drawUserInput(player.GetLane());
+            drawDisplayWords(i, lanes[i].GetWord()); //draw words user must type
+            if(lanes[i].GetWord() == user_input){
+                user_input.clear();
+                Random = std::rand() % reader.GetFileWords().size();
+                lanes[i].SetWord(reader.GetFileWords()[Random]);
+                player.SetLane(i+1); //change car lane
+            }
+        }
+    }
+}
 
 void ofApp::drawDisplayWords(int lane, string word){
     switch (lane) {
