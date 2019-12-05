@@ -42,7 +42,7 @@ private:
     
     FileReader reader;
     
-    int frame_counter = 0;
+    int frame_counter;
     
 public:
 		void setup();

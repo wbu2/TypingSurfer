@@ -20,6 +20,7 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
 }
 
 //--------------------------------------------------------------
@@ -29,7 +30,6 @@ void ofApp::draw(){
     }
     if(current_state == RUNNING){
         drawGameRunning();
-        
     }
     
 }
@@ -102,12 +102,12 @@ void ofApp::drawGameStart(){
 void ofApp::drawGameRunning(){
     if(frame_counter == 2){
         frame_counter = 0;
+    }else{
+        frame_counter++;
     }
-    frame_counter++;
+    cout << frame_counter << endl;
     drawFrames(frame_counter);
-    drawFrames(0);
-    drawFrames(1);
-    drawFrames(2);
+
     ofDrawLine(ofGetWindowWidth()/3, 0 , ofGetWindowWidth()/3, ofGetWindowHeight());
     ofDrawLine(2 * (ofGetWindowWidth()/ 3), 0, 2 * (ofGetWindowWidth()/3), ofGetWindowHeight());
     
@@ -116,7 +116,7 @@ void ofApp::drawGameRunning(){
     
     
     
-    
+    cout << "end" << endl;
 }
 
 
@@ -196,10 +196,13 @@ void ofApp::drawFrames(int frame){
     switch (frame) {
         case 0:
             first_frame.draw(0,0,ofGetWindowWidth(), ofGetWindowHeight());
+            break;
         case 1:
             second_frame.draw(0,0,ofGetWindowWidth(), ofGetWindowHeight());
+            break;
         case 2:
             third_frame.draw(0,0,ofGetWindowWidth(), ofGetWindowHeight());
+            break;
     }
 }
 

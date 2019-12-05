@@ -1,5 +1,3 @@
 ofxCenteredTrueTypeFont-master
-ofxXmlSettings
-ofxControlPanel-master
 ofxGui
 ofxVectorGraphics
