@@ -17,7 +17,7 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    }
+}
 
 //--------------------------------------------------------------
 void ofApp::draw(){
@@ -97,13 +97,11 @@ void ofApp::drawGameStart(){
 
 void ofApp::drawGameRunning(){
     
-   game_background.draw(0, 0, 1024, 768);
-
-    font.drawStringCentered(words[0], ofGetWindowHeight(), ofGetWindowWidth()/ 2);
-    font.drawStringCentered(words[1], ofGetWindowHeight() / 1.5, ofGetWindowWidth()/ 2);
-    font.drawStringCentered(words[2], ofGetWindowHeight()/3.2, ofGetWindowWidth()/ 2);
-
-    default_font.drawString(user_input, ofGetWindowWidth()/5, ofGetWindowHeight() / 2);
+    ofDrawLine(ofGetWindowWidth()/3, 0 , ofGetWindowWidth()/3, ofGetWindowHeight());
+    ofDrawLine(2 * (ofGetWindowWidth()/ 3), 0, 2 * (ofGetWindowWidth()/3), ofGetWindowHeight());
+    
+    drawLane();
+    drawCar(player.GetLane());
     
 }
 

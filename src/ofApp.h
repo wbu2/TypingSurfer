@@ -3,6 +3,9 @@
 #include "ofMain.h"
 #include "ofxCenteredTrueTypeFont.h"
 #include "ofxControlPanel.h"
+#include "Lane.h"
+#include "car.h"
+#include "FileReader.h"
 
 class ofApp : public ofBaseApp{
     
@@ -11,24 +14,31 @@ class ofApp : public ofBaseApp{
         RUNNING,
         ENDED
     };
+    
 private:
     GameState current_state = START_SCREEN;
     
     ofImage start_background;
     ofImage game_background;
+    ofImage car_image;
     
     ofTrueTypeFont default_font;
     ofTrueTypeFont small_font;
     
-    ofxCenteredTrueTypeFont font;
+    ofxCenteredTrueTypeFont centered_font;
+    
+    
+    vector<Lane> lanes  = {left_lane, middle_lane, right_lane};
+    Lane left_lane;
+    Lane middle_lane;
+    Lane right_lane;
+    
+    Car player;
     
     string user_input;
-    vector<string> words = {"University", "Cat", "Hello"};
-
     
+    FileReader reader;
     
-    
-
 public:
 		void setup();
 		void update();
@@ -45,5 +55,9 @@ public:
 		void windowResized(int w, int h);
     void drawGameStart();
     void drawGameRunning();
-		
+    void drawLaneMarkers();
+    void drawCar(int lane);
+    void drawLane();
+    void drawDisplayWords(int lane, string word);
+    void drawUserInput(int lane);
 };
