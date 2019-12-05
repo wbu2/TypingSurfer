@@ -5,6 +5,9 @@ void ofApp::setup(){
     start_background.load("start.jpg");
     game_background.load("game.jpg");
     car_image.load("car.png");
+    first_frame.load("first-frame.png");
+    second_frame.load("second-frame.png");
+    third_frame.load("third-frame.png");
     default_font.load("joystix monospace.ttf", 70);
     small_font.load("joystix monospace.ttf", 40);
     centered_font.load("joystix monospace.ttf", 10);
@@ -26,6 +29,7 @@ void ofApp::draw(){
     }
     if(current_state == RUNNING){
         drawGameRunning();
+        
     }
     
 }
@@ -96,12 +100,22 @@ void ofApp::drawGameStart(){
 }
 
 void ofApp::drawGameRunning(){
-    
+    if(frame_counter == 2){
+        frame_counter = 0;
+    }
+    frame_counter++;
+    drawFrames(frame_counter);
+    drawFrames(0);
+    drawFrames(1);
+    drawFrames(2);
     ofDrawLine(ofGetWindowWidth()/3, 0 , ofGetWindowWidth()/3, ofGetWindowHeight());
     ofDrawLine(2 * (ofGetWindowWidth()/ 3), 0, 2 * (ofGetWindowWidth()/3), ofGetWindowHeight());
     
     drawLane();
     drawCar(player.GetLane());
+    
+    
+    
     
 }
 
@@ -176,7 +190,16 @@ void ofApp::drawUserInput(int lane){
             centered_font.drawStringCentered(user_input, 5 * (ofGetWindowWidth() / 6), 2 * (ofGetWindowHeight() / 3));
             break;
     }
-    
 }
 
+void ofApp::drawFrames(int frame){
+    switch (frame) {
+        case 0:
+            first_frame.draw(0,0,ofGetWindowWidth(), ofGetWindowHeight());
+        case 1:
+            second_frame.draw(0,0,ofGetWindowWidth(), ofGetWindowHeight());
+        case 2:
+            third_frame.draw(0,0,ofGetWindowWidth(), ofGetWindowHeight());
+    }
+}
 

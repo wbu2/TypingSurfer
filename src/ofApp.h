@@ -21,14 +21,17 @@ private:
     ofImage start_background;
     ofImage game_background;
     ofImage car_image;
+    ofImage first_frame;
+    ofImage second_frame;
+    ofImage third_frame;
     
     ofTrueTypeFont default_font;
     ofTrueTypeFont small_font;
     
     ofxCenteredTrueTypeFont centered_font;
     
-    
     vector<Lane> lanes  = {left_lane, middle_lane, right_lane};
+    vector<ofImage> frames = {first_frame, second_frame, third_frame};
     Lane left_lane;
     Lane middle_lane;
     Lane right_lane;
@@ -38,6 +41,8 @@ private:
     string user_input;
     
     FileReader reader;
+    
+    int frame_counter = 0;
     
 public:
 		void setup();
@@ -60,4 +65,5 @@ public:
     void drawLane();
     void drawDisplayWords(int lane, string word);
     void drawUserInput(int lane);
+    void drawFrames(int frame);
 };
