@@ -120,6 +120,21 @@ void ofApp::drawCar(int lane){
     
 }
 
+
+void ofApp::drawDisplayWords(int lane, string word){
+    switch (lane) {
+        case 0:
+            centered_font.drawStringCentered(word, ofGetWindowWidth() / 6, 3 * (ofGetWindowHeight() / 4));
+            break;
+        case 1:
+            centered_font.drawStringCentered(word, 3 * (ofGetWindowWidth() / 6), 3 * (ofGetWindowHeight() / 4));
+            break;
+        case 2:
+            centered_font.drawStringCentered(word, 5 * (ofGetWindowWidth() / 6), 3 * (ofGetWindowHeight() / 4));
+            break;
+    }
+}
+
 void ofApp::drawUserInput(int lane){
     switch (lane) {
         case 1:
