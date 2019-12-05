@@ -34,12 +34,15 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
     if(current_state == START_SCREEN && key == '1'){
         current_state = RUNNING;
-    }
-    if(current_state == RUNNING){
+    }else if(current_state == RUNNING){
         user_input += (char) key;
+        if(key == OF_KEY_BACKSPACE){
+            if(!user_input.empty()){
+                user_input.pop_back();
+            }
+            user_input.pop_back();
+        }
     }
-    
-    
 }
 
 //--------------------------------------------------------------
