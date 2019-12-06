@@ -181,13 +181,13 @@ void ofApp::drawDisplayWords(int lane, string word){
     ofSetColor(0, 0, 0);
     switch (lane) {
         case 0:
-            centered_font.drawStringCentered(word, ofGetWindowWidth() / 6, 3 * (ofGetWindowHeight() / 4));
+            centered_font.drawStringCentered(word, ofGetWindowWidth() / 6, ofGetWindowHeight() - 15);
             break;
         case 1:
-            centered_font.drawStringCentered(word, 3 * (ofGetWindowWidth() / 6), 3 * (ofGetWindowHeight() / 4));
+            centered_font.drawStringCentered(word, 3 * (ofGetWindowWidth() / 6), ofGetWindowHeight() - 15);
             break;
         case 2:
-            centered_font.drawStringCentered(word, 5 * (ofGetWindowWidth() / 6), 3 * (ofGetWindowHeight() / 4));
+            centered_font.drawStringCentered(word, 5 * (ofGetWindowWidth() / 6), ofGetWindowHeight() - 15);
             break;
     }
     ofSetColor(255,255,255);
