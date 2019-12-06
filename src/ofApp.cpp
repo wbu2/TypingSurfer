@@ -135,13 +135,13 @@ void ofApp::drawGameRunning(){
 void ofApp::drawCar(int lane){
     switch (lane) {
         case 1:
-            player_car.draw(ofGetWindowWidth()/10,  6* ofGetWindowHeight()/7 , ofGetWindowWidth()/8,ofGetWindowWidth()/10);
+            player_car.draw(ofGetWindowWidth()/10,  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
             break;
         case 2:
-            player_car.draw(4.5 * (ofGetWindowWidth()/10),  6* ofGetWindowHeight()/7 , ofGetWindowWidth()/8,ofGetWindowWidth()/10);
+            player_car.draw(4.5 * (ofGetWindowWidth()/10),  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
             break;
         case 3:
-            player_car.draw(7.8 * (ofGetWindowWidth()/10),  6* ofGetWindowHeight()/7 , ofGetWindowWidth()/8,ofGetWindowWidth()/10);
+            player_car.draw(7.8 * (ofGetWindowWidth()/10),  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
             break;
     }
     
