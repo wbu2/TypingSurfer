@@ -18,6 +18,8 @@ class ofApp : public ofBaseApp{
 private:
     GameState current_state = START_SCREEN;
     
+    int kNumLanes = 3;
+    
     double obstacle_speed;
     
     ofImage start_background;
@@ -43,8 +45,13 @@ private:
     Lane middle_lane;
     Lane right_lane;
     
+    Obstacle left_obstacle;
+    Obstacle middle_obstacle;
+    Obstacle right_obstacle;
+    
     vector<Lane> lanes  = {left_lane, middle_lane, right_lane};
     vector<ofImage> car_images = {car_beamer, car_corvette, car_gt, car_romeo, car_sonata};
+    vector<Obstacle> obstacles = {left_obstacle, middle_obstacle, right_obstacle};
     
     Car player;
     
@@ -76,6 +83,6 @@ public:
     void drawDisplayWords(int lane, string word);
     void drawUserInput(int lane);
     void drawFrames(int frame);
-    void drawObstacles(int lane, double speed, ofImage obstacle);
-    bool ObstacleIntersects(Obstacle o, Car player);
+    void drawObstacles(int lane, double speed, ofImage image);
+    bool ObstacleIntersects();
 };

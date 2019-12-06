@@ -8,6 +8,7 @@ private:
 public:
     ofVec2f GetPosition();
     int GetLane();
-    void SetLane();
+    void SetLane(int num);
+    void SetPosition(int x, int y);
     
 };

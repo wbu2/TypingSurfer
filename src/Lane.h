@@ -8,7 +8,6 @@ private:
     string word;
     
 public:
-    Lane();
     bool ReachedEnd();
     ofVec2f GetPosition();
     string GetWord();

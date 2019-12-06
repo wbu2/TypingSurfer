@@ -1,9 +1,5 @@
 #include "Lane.h"
 
-Lane::Lane(){
-    
-}
-
 bool Lane::ReachedEnd(){
     return true;
 }

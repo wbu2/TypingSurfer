@@ -9,5 +9,5 @@ public:
     int GetLane();
     void SetLane(int num);
     ofVec2f GetPosition();
-
+    void SetPosition(int x, int y);
 };

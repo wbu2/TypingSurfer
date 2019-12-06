@@ -18,3 +18,7 @@ void Car::SetLane(int num){
 ofVec2f Car::GetPosition(){
     return position;
 }
+
+void Car::SetPosition(int x, int y){
+    position.set(x, y);
+}

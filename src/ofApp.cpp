@@ -27,7 +27,7 @@ void ofApp::setup(){
     user_input = "";
     
     reader.ReadWords("input.txt");
-    
+
 }
 
 //--------------------------------------------------------------
@@ -51,6 +51,13 @@ void ofApp::draw(){
             
             break;
     }
+
+    /*if(current_state == START_SCREEN){
+        drawGameStart();
+    }
+    if(current_state == RUNNING){
+        drawGameRunning();
+    }*/
     
 }
 
@@ -134,21 +141,40 @@ void ofApp::drawGameRunning(){
     drawLane();
     drawCar(player.GetLane());
     
-    drawObstacles(1, obstacle_speed, car_beamer);
+    for(int i = 1; i <= obstacles.size(); ++i){
+        drawObstacles(i, obstacle_speed, car_beamer);
+        if(obstacles[i-1].GetPosition().y > player.GetPosition().y){
+            current_state = ENDED;
+        }
+        cout << obstacles[i-1].GetPosition().y << endl;
+        cout << player.GetPosition().y << endl;
+    }
+    
+    for(int i = 1; i<= kNumLanes; ++i){
+        drawObstacles(i, obstacle_speed, car_gt);
+        if(ObstacleIntersects()){
+            current_state = ENDED;
+        }
+    }
+    /*drawObstacles(1, obstacle_speed, car_beamer);
     drawObstacles(2, obstacle_speed, car_gt);
-    drawObstacles(3, obstacle_speed, car_corvette);
+    drawObstacles(3, obstacle_speed, car_corvette);*/
+    
     
 }
 
 void ofApp::drawCar(int lane){
     switch (lane) {
         case 1:
+            player.SetPosition(ofGetWindowWidth()/10, 5* ofGetWindowHeight()/7);
             player_car.draw(ofGetWindowWidth()/10,  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
             break;
         case 2:
+            player.SetPosition(4.5 * (ofGetWindowWidth()/10), 5* ofGetWindowHeight()/7);
             player_car.draw(4.5 * (ofGetWindowWidth()/10),  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
             break;
         case 3:
+            player.SetPosition(7.8 * (ofGetWindowWidth()/10),5* ofGetWindowHeight()/7);
             player_car.draw(7.8 * (ofGetWindowWidth()/10),  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
             break;
     }
@@ -231,7 +257,7 @@ void ofApp::drawFrames(int frame){
     }
 }
 
-void ofApp::drawObstacles(int lane, double speed, ofImage obstacle){
+void ofApp::drawObstacles(int lane, double speed, ofImage image){
     int down_magnitude;
     int direction_magnitude;
     
@@ -242,25 +268,29 @@ void ofApp::drawObstacles(int lane, double speed, ofImage obstacle){
         case 1:
             down_magnitude = 34;
             direction_magnitude = 10;
+            
             x_coord = ofGetWindowWidth() / 5 - direction_magnitude * speed;
             y_coord = down_magnitude * speed;
             
-            if(y_coord > ofGetWindowHeight()){
+            left_obstacle.SetPosition(x_coord, y_coord);
+            
+            if(left_obstacle.GetPosition().y > ofGetWindowHeight()){
                 obstacle_speed = 0;
             }
-            obstacle.draw(x_coord, y_coord, ofGetWindowHeight()/5, ofGetWindowHeight()/5);
+            image.draw(x_coord,y_coord, ofGetWindowHeight()/5, ofGetWindowHeight()/5);
             break;
         case 2:
             down_magnitude = 34;
             direction_magnitude = 0;
             x_coord = 2 * ofGetWindowWidth() / 5;
             y_coord = down_magnitude * speed;
+            middle_obstacle.SetPosition(x_coord, y_coord);
             
-            if(y_coord > ofGetWindowHeight()){
+            if(middle_obstacle.GetPosition().y > ofGetWindowHeight()){
                 obstacle_speed = 0;
             }
             
-            obstacle.draw(x_coord, y_coord, ofGetWindowHeight() / 5, ofGetWindowHeight() / 5);
+            image.draw(x_coord, y_coord, ofGetWindowHeight() / 5, ofGetWindowHeight() / 5);
             break;
         case 3:
             down_magnitude = 34;
@@ -272,12 +302,11 @@ void ofApp::drawObstacles(int lane, double speed, ofImage obstacle){
                 obstacle_speed = 0;
             }
             
-            obstacle.draw(x_coord, y_coord, ofGetWindowHeight()/5, ofGetWindowHeight()/5);
-            
+            image.draw(x_coord, y_coord, ofGetWindowHeight()/5, ofGetWindowHeight()/5);
             break;
     }
 }
 
-bool ObstacleIntersects(Obstacle o, Car player){
-    return o.GetPosition().y == player.GetPosition().y;
+bool ofApp::ObstacleIntersects(){
+    return left_obstacle.GetPosition().y > player.GetPosition().y || middle_obstacle.GetPosition().y > player.GetPosition().y|| right_obstacle.GetPosition().y > player.GetPosition().y;
 }
