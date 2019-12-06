@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxCenteredTrueTypeFont.h"
-#include "ofxControlPanel.h"
 #include "Lane.h"
 #include "car.h"
 #include "FileReader.h"
@@ -18,9 +17,18 @@ class ofApp : public ofBaseApp{
 private:
     GameState current_state = START_SCREEN;
     
+    double obstacle_speed;
+    
     ofImage start_background;
     ofImage game_background;
-    ofImage car_image;
+    
+    ofImage player_car;
+    ofImage car_beamer;
+    ofImage car_corvette;
+    ofImage car_gt;
+    ofImage car_romeo;
+    ofImage car_sonata;
+    
     ofImage first_frame;
     ofImage second_frame;
     ofImage third_frame;
@@ -30,11 +38,12 @@ private:
     
     ofxCenteredTrueTypeFont centered_font;
     
-    vector<Lane> lanes  = {left_lane, middle_lane, right_lane};
-    vector<ofImage> frames = {first_frame, second_frame, third_frame};
     Lane left_lane;
     Lane middle_lane;
     Lane right_lane;
+    
+    vector<Lane> lanes  = {left_lane, middle_lane, right_lane};
+    vector<ofImage> car_images = {car_beamer, car_corvette, car_gt, car_romeo, car_sonata};
     
     Car player;
     
@@ -66,4 +75,5 @@ public:
     void drawDisplayWords(int lane, string word);
     void drawUserInput(int lane);
     void drawFrames(int frame);
+    void drawObstacles(int lane, double speed, ofImage obstacle);
 };

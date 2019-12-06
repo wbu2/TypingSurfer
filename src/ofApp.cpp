@@ -4,10 +4,22 @@
 void ofApp::setup(){
     start_background.load("start.jpg");
     game_background.load("game.jpg");
-    car_image.load("car.png");
-    first_frame.load("first-frame.png");
+    
+    player_car.load("romeo.png");
+    car_gt.load("gt.png");
+    car_romeo.load("romeo.png");
+    car_beamer.load("beamer.png");
+    car_sonata.load("sonata.png");
+    car_corvette.load("corvette.png");
+    
+    /*first_frame.load("first-frame.png");
     second_frame.load("second-frame.png");
-    third_frame.load("third-frame.png");
+    third_frame.load("third-frame.png");*/
+    
+    first_frame.load("frame-1.jpg");
+    second_frame.load("frame-2.jpg");
+    third_frame.load("frame-3.jpg");
+    
     default_font.load("joystix monospace.ttf", 70);
     small_font.load("joystix monospace.ttf", 40);
     centered_font.load("joystix monospace.ttf", 10);
@@ -20,7 +32,9 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    
+    if(current_state == RUNNING){
+        obstacle_speed += 0.2;
+    }
 }
 
 //--------------------------------------------------------------
@@ -105,7 +119,7 @@ void ofApp::drawGameRunning(){
     }else{
         frame_counter++;
     }
-    cout << frame_counter << endl;
+    
     drawFrames(frame_counter);
 
     ofDrawLine(ofGetWindowWidth()/3, 0 , ofGetWindowWidth()/3, ofGetWindowHeight());
@@ -114,26 +128,25 @@ void ofApp::drawGameRunning(){
     drawLane();
     drawCar(player.GetLane());
     
+    drawObstacles(1, obstacle_speed, car_beamer);
     
-    
-    cout << "end" << endl;
 }
-
 
 void ofApp::drawCar(int lane){
     switch (lane) {
         case 1:
-            car_image.draw(ofGetWindowWidth()/10,  6* ofGetWindowHeight()/7 , ofGetWindowWidth()/8,ofGetWindowWidth()/10);
+            player_car.draw(ofGetWindowWidth()/10,  6* ofGetWindowHeight()/7 , ofGetWindowWidth()/8,ofGetWindowWidth()/10);
             break;
         case 2:
-            car_image.draw(4.5 * (ofGetWindowWidth()/10),  6* ofGetWindowHeight()/7 , ofGetWindowWidth()/8,ofGetWindowWidth()/10);
+            player_car.draw(4.5 * (ofGetWindowWidth()/10),  6* ofGetWindowHeight()/7 , ofGetWindowWidth()/8,ofGetWindowWidth()/10);
             break;
         case 3:
-            car_image.draw(7.8 * (ofGetWindowWidth()/10),  6* ofGetWindowHeight()/7 , ofGetWindowWidth()/8,ofGetWindowWidth()/10);
+            player_car.draw(7.8 * (ofGetWindowWidth()/10),  6* ofGetWindowHeight()/7 , ofGetWindowWidth()/8,ofGetWindowWidth()/10);
             break;
     }
     
 }
+
 void ofApp::drawLane(){
     /*
      assign each lane a random word
@@ -165,6 +178,7 @@ void ofApp::drawLane(){
 }
 
 void ofApp::drawDisplayWords(int lane, string word){
+    ofSetColor(0, 0, 0);
     switch (lane) {
         case 0:
             centered_font.drawStringCentered(word, ofGetWindowWidth() / 6, 3 * (ofGetWindowHeight() / 4));
@@ -176,9 +190,11 @@ void ofApp::drawDisplayWords(int lane, string word){
             centered_font.drawStringCentered(word, 5 * (ofGetWindowWidth() / 6), 3 * (ofGetWindowHeight() / 4));
             break;
     }
+    ofSetColor(255,255,255);
 }
 
 void ofApp::drawUserInput(int lane){
+    ofSetColor(0, 0, 0);
     switch (lane) {
         case 1:
             centered_font.drawStringCentered(user_input, ofGetWindowWidth() / 6, 2 * (ofGetWindowHeight() / 3));
@@ -190,6 +206,7 @@ void ofApp::drawUserInput(int lane){
             centered_font.drawStringCentered(user_input, 5 * (ofGetWindowWidth() / 6), 2 * (ofGetWindowHeight() / 3));
             break;
     }
+    ofSetColor(255,255,255);
 }
 
 void ofApp::drawFrames(int frame){
@@ -206,3 +223,29 @@ void ofApp::drawFrames(int frame){
     }
 }
 
+void ofApp::drawObstacles(int lane, double speed, ofImage obstacle){
+    int down_magnitude;
+    int direction_magnitude;
+    
+    double x_coord;
+    double y_coord;
+    
+    cout << speed << endl;
+    switch (lane) {
+        case 1:
+            down_magnitude = 34;
+            direction_magnitude = 10;
+            x_coord = ofGetWindowWidth() / 5 - direction_magnitude * speed;
+            y_coord = down_magnitude * speed;
+            
+            if(y_coord > ofGetWindowHeight()){
+                obstacle_speed = 0;
+            }
+            obstacle.draw(x_coord, y_coord, ofGetWindowHeight()/5, ofGetWindowHeight()/5);
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+    }
+}
