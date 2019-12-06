@@ -13,8 +13,8 @@ void ofApp::setup(){
     car_corvette.load("corvette.png");
     
     /*first_frame.load("first-frame.png");
-    second_frame.load("second-frame.png");
-    third_frame.load("third-frame.png");*/
+     second_frame.load("second-frame.png");
+     third_frame.load("third-frame.png");*/
     
     first_frame.load("frame-1.jpg");
     second_frame.load("frame-2.jpg");
@@ -34,16 +34,22 @@ void ofApp::setup(){
 void ofApp::update(){
     if(current_state == RUNNING){
         obstacle_speed += 0.2;
+        
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    if(current_state == START_SCREEN){
-        drawGameStart();
-    }
-    if(current_state == RUNNING){
-        drawGameRunning();
+    switch (current_state) {
+        case START_SCREEN:
+            drawGameStart();
+            break;
+        case RUNNING:
+            drawGameRunning();
+            break;
+        case ENDED:
+            
+            break;
     }
     
 }
@@ -121,7 +127,7 @@ void ofApp::drawGameRunning(){
     }
     
     drawFrames(frame_counter);
-
+    
     ofDrawLine(ofGetWindowWidth()/3, 0 , ofGetWindowWidth()/3, ofGetWindowHeight());
     ofDrawLine(2 * (ofGetWindowWidth()/ 3), 0, 2 * (ofGetWindowWidth()/3), ofGetWindowHeight());
     
@@ -270,4 +276,8 @@ void ofApp::drawObstacles(int lane, double speed, ofImage obstacle){
             
             break;
     }
+}
+
+bool ObstacleIntersects(Obstacle o, Car player){
+    return o.GetPosition().y == player.GetPosition().y;
 }

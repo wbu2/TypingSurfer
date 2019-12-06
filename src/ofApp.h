@@ -5,6 +5,7 @@
 #include "Lane.h"
 #include "car.h"
 #include "FileReader.h"
+#include "Obstacle.h"
 
 class ofApp : public ofBaseApp{
     
@@ -76,4 +77,5 @@ public:
     void drawUserInput(int lane);
     void drawFrames(int frame);
     void drawObstacles(int lane, double speed, ofImage obstacle);
+    bool ObstacleIntersects(Obstacle o, Car player);
 };
