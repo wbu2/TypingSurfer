@@ -129,6 +129,8 @@ void ofApp::drawGameRunning(){
     drawCar(player.GetLane());
     
     drawObstacles(1, obstacle_speed, car_beamer);
+    drawObstacles(2, obstacle_speed, car_gt);
+    drawObstacles(3, obstacle_speed, car_corvette);
     
 }
 
@@ -230,7 +232,6 @@ void ofApp::drawObstacles(int lane, double speed, ofImage obstacle){
     double x_coord;
     double y_coord;
     
-    cout << speed << endl;
     switch (lane) {
         case 1:
             down_magnitude = 34;
@@ -244,8 +245,29 @@ void ofApp::drawObstacles(int lane, double speed, ofImage obstacle){
             obstacle.draw(x_coord, y_coord, ofGetWindowHeight()/5, ofGetWindowHeight()/5);
             break;
         case 2:
+            down_magnitude = 34;
+            direction_magnitude = 0;
+            x_coord = 2 * ofGetWindowWidth() / 5;
+            y_coord = down_magnitude * speed;
+            
+            if(y_coord > ofGetWindowHeight()){
+                obstacle_speed = 0;
+            }
+            
+            obstacle.draw(x_coord, y_coord, ofGetWindowHeight() / 5, ofGetWindowHeight() / 5);
             break;
         case 3:
+            down_magnitude = 34;
+            direction_magnitude = 10;
+            x_coord = 3 * ofGetWindowWidth() / 5 + direction_magnitude * speed;
+            y_coord = down_magnitude * speed;
+            
+            if(y_coord > ofGetWindowHeight()){
+                obstacle_speed = 0;
+            }
+            
+            obstacle.draw(x_coord, y_coord, ofGetWindowHeight()/5, ofGetWindowHeight()/5);
+            
             break;
     }
 }
