@@ -18,4 +18,7 @@ I decided to split the things I draw into separate helper methods. However, I ke
 -Need to fix backspace key press
 -Need to create obstacle collision
 
-
+## 12/5
+I decided that I will continue with my original linear perspective idea as I realized I could simply animate the illusion with a couple images. I drew 3 frames of the lane markers and drew them continously to create the movement effect. I also drew the diagonal movement of the left most lane. 
+ -Need to fully implement obstacle animations 
+ -Need to implement collision
