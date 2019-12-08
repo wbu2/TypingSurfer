@@ -6,18 +6,15 @@ void ofApp::setup(){
     game_background.load("game.jpg");
     
     player_car.load("romeo.png");
-    car_gt.load("gt.png");
-    car_romeo.load("romeo.png");
-    car_beamer.load("beamer.png");
-    car_sonata.load("sonata.png");
-    car_corvette.load("corvette.png");
     
-    car_images.push_back(car_gt);
-    car_images.push_back(car_romeo);
-    car_images.push_back(car_beamer);
-    car_images.push_back(car_sonata);
-    car_images.push_back(car_corvette);
-    
+    ofDirectory dir(car_image_path);
+    dir.listDir();
+    for(int i = 0; i<dir.size(); ++i){
+        ofImage img;
+        img.load(car_image_path + "/" + dir.getName(i));
+        car_images.push_back(img);
+    }
+
     first_frame.load("frame-1.jpg");
     second_frame.load("frame-2.jpg");
     third_frame.load("frame-3.jpg");
