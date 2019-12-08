@@ -23,7 +23,7 @@ void ofApp::setup(){
     third_frame.load("frame-3.jpg");
     
     default_font.load("joystix monospace.ttf", 70);
-    small_font.load("joystix monospace.ttf", 40);
+    small_font.load("joystix monospace.ttf", 30);
     centered_font.load("joystix monospace.ttf", 10);
     
     user_input = "";
@@ -262,57 +262,17 @@ void ofApp::drawFrames(int frame){
     }
 }
 
-void ofApp::drawObstacles(int lane, double speed, ofImage image){
-    int down_magnitude;
-    int direction_magnitude;
-    
-    double x_coord;
-    double y_coord;
-    
-    switch (lane) {
-        case 0:
-            down_magnitude = 34;
-            direction_magnitude = 10;
-            
-            x_coord = ofGetWindowWidth() / 5 - direction_magnitude * speed;
-            y_coord = down_magnitude * speed;
-            
-            left_obstacle.SetPosition(x_coord, y_coord);
-            
-            if(left_obstacle.GetPosition().y > ofGetWindowHeight()){
-                obstacle_speed = 0;
-            }
-            image.draw(x_coord,y_coord, ofGetWindowHeight()/5, ofGetWindowHeight()/5);
-            break;
-        case 1:
-            down_magnitude = 34;
-            direction_magnitude = 0;
-            
-            x_coord = 2 * ofGetWindowWidth() / 5;
-            y_coord = down_magnitude * speed;
-            middle_obstacle.SetPosition(x_coord, y_coord);
-            
-            if(middle_obstacle.GetPosition().y > ofGetWindowHeight()){
-                obstacle_speed = 0;
-            }
-            
-            image.draw(x_coord, y_coord, ofGetWindowHeight() / 5, ofGetWindowHeight() / 5);
-            break;
-        case 2:
-            down_magnitude = 34;
-            direction_magnitude = 10;
-            x_coord = 3 * ofGetWindowWidth() / 5 + direction_magnitude * speed;
-            y_coord = down_magnitude * speed;
-            
-            if(y_coord > ofGetWindowHeight()){
-                obstacle_speed = 0;
-            }
-            
-            image.draw(x_coord, y_coord, ofGetWindowHeight()/5, ofGetWindowHeight()/5);
-            break;
+void ofApp::drawObstacle(Obstacle o){
+    if(o.GetPosition().x != 0){
+        o.GetImage().draw(o.GetPosition(), ofGetWindowHeight()/5, ofGetWindowHeight()/5);
     }
+    
 }
 
-bool ofApp::ObstacleIntersects(){
-    return left_obstacle.GetPosition().y > player.GetPosition().y || middle_obstacle.GetPosition().y > player.GetPosition().y|| right_obstacle.GetPosition().y > player.GetPosition().y;
+bool ofApp::Collided(Obstacle o){
+    if(o.GetLane() == player.GetLane()){
+        return o.GetPosition().y > player.GetPosition().y;
+    }
+    return false;
 }
+
