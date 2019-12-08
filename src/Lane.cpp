@@ -1,9 +1,5 @@
 #include "Lane.h"
 
-bool Lane::ReachedEnd(){
-    return true;
-}
-
 ofVec2f Lane::GetPosition(){
     return position;
 }
@@ -14,4 +10,12 @@ string Lane::GetWord(){
 
 void Lane::SetWord(string input){
     word = input;
+}
+
+bool Lane::HasObstacle(){
+    return has_obstacle;
+}
+
+void Lane::ChangeObstacle(bool b){
+    has_obstacle = b;
 }

@@ -8,8 +8,9 @@ private:
     string word;
     
 public:
-    bool ReachedEnd();
     ofVec2f GetPosition();
     string GetWord();
     void SetWord(string input);
+    bool HasObstacle();
+    void ChangeObstacle(bool b);
 };
