@@ -7,4 +7,5 @@ private:
 public:
     void ReadWords(string relative_name);
     vector<string> GetFileWords();
+    void ClearWords();
 };

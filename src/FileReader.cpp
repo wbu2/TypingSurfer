@@ -10,3 +10,7 @@ void FileReader::ReadWords(string relative_name){
 vector<string> FileReader::GetFileWords(){
     return file_words;
 }
+
+void FileReader::ClearWords(){
+    file_words.clear();
+}
