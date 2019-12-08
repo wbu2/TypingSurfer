@@ -12,9 +12,11 @@ void ofApp::setup(){
     car_sonata.load("sonata.png");
     car_corvette.load("corvette.png");
     
-    /*first_frame.load("first-frame.png");
-     second_frame.load("second-frame.png");
-     third_frame.load("third-frame.png");*/
+    car_images.push_back(car_gt);
+    car_images.push_back(car_romeo);
+    car_images.push_back(car_beamer);
+    car_images.push_back(car_sonata);
+    car_images.push_back(car_corvette);
     
     first_frame.load("frame-1.jpg");
     second_frame.load("frame-2.jpg");
@@ -27,7 +29,16 @@ void ofApp::setup(){
     user_input = "";
     
     reader.ReadWords("input.txt");
-
+    
+    
+    
+    for(int i = 0; i< kNumLanes; ++i){
+        Lane l;
+        lanes.push_back(l);
+    }
+    
+    
+    
 }
 
 //--------------------------------------------------------------

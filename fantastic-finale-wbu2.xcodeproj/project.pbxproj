@@ -673,10 +673,10 @@
 				96B66B1757FB776A0A7FEB7B /* Obstacle.cpp */,
 				BFCFADA7BC9A032634CFC2D3 /* car.h */,
 				954D99FD0CFC4637D618990E /* car.cpp */,
+				E84DB0C0502A5D95399A4A6A /* FileReader.h */,
 				C53C1C3740901A7E707F6F5C /* FileReader.cpp */,
 				3F554B4596D5037062C9AD9D /* Lane.h */,
 				8477CCE6C816E7E1941086D6 /* Lane.cpp */,
-				E84DB0C0502A5D95399A4A6A /* FileReader.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
