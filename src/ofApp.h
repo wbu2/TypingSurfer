@@ -17,12 +17,9 @@ class ofApp : public ofBaseApp{
     
 private:
     GameState current_state = START_SCREEN;
-    
-    int kNumLanes = 3;
     int words_typed = 0;
     int score = 0;
-    
-    string car_image_path = "car-images" ;
+
     ofImage start_background;
     ofImage game_background;
     

@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include "Constants.h"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -7,11 +8,11 @@ void ofApp::setup(){
     
     player_car.load("romeo.png");
     
-    ofDirectory dir(car_image_path);
+    ofDirectory dir(constants::kCarImagePath);
     dir.listDir();
     for(int i = 0; i<dir.size(); ++i){
         ofImage img;
-        img.load(car_image_path + "/" + dir.getName(i));
+        img.load(constants::kCarImagePath + "/" + dir.getName(i));
         car_images.push_back(img);
     }
 
@@ -27,7 +28,7 @@ void ofApp::setup(){
     
     reader.ReadWords("input.txt");
     
-    for(int i = 0; i< kNumLanes; ++i){
+    for(int i = 0; i< constants::kNumLanes; ++i){
         Lane l;
         lanes.push_back(l);
     }
@@ -136,7 +137,7 @@ void ofApp::drawGameStart(){
 
 void ofApp::drawGameRunning(){
     
-    drawFrames(ofRandom(kNumLanes));
+    drawFrames(ofRandom(constants::kNumLanes));
 
     drawPlayer(player.GetLane());
     drawLane();
@@ -182,7 +183,7 @@ void ofApp::drawLane(){
         for(int i = 0; i<lanes.size(); ++i){
             drawUserInput(player.GetLane());
             drawDisplayWords(i, lanes[i].GetWord()); //draw words user must type
-            if(lanes[i].GetWord() == user_input && abs(player.GetLane() - i) < kNumLanes - 1){
+            if(lanes[i].GetWord() == user_input && abs(player.GetLane() - i) < constants::kNumLanes - 1){
                 user_input.clear();
                 words_typed++;
                 lanes[i].SetWord(reader.GetFileWords()[ofRandom(reader.GetFileWords().size())]);
@@ -265,7 +266,7 @@ void ofApp::drawRandomObstacle(){
     
     if(current_obstacles.empty()){
         Obstacle o;
-        o.SetLane(ofRandom(kNumLanes));
+        o.SetLane(ofRandom(constants::kNumLanes));
         o.SetImage(car_images[ofRandom(car_images.size())]);
         current_obstacles.push_back(o);
     }
@@ -274,7 +275,7 @@ void ofApp::drawRandomObstacle(){
     for(Obstacle o : current_obstacles){
         if(o.ReachedHalfway()){
             Obstacle l;
-            l.SetLane(ofRandom(kNumLanes));
+            l.SetLane(ofRandom(constants::kNumLanes));
             l.SetSpeed(0);
             l.SetImage(car_images[ofRandom(car_images.size())]);
             current_obstacles.push_back(l);

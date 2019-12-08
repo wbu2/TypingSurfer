@@ -257,6 +257,7 @@
 		E84DB0C0502A5D95399A4A6A /* FileReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = FileReader.h; path = src/FileReader.h; sourceTree = SOURCE_ROOT; };
 		E9B428B79E8CA2014B60BAFB /* Obstacle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Obstacle.h; path = src/Obstacle.h; sourceTree = SOURCE_ROOT; };
 		ECF8674C7975F1063C5E30CA /* ofxGuiGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxGuiGroup.cpp; path = ../../../addons/ofxGui/src/ofxGuiGroup.cpp; sourceTree = SOURCE_ROOT; };
+		FAFC2680239CF5AF003BFCF3 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -677,6 +678,7 @@
 				C53C1C3740901A7E707F6F5C /* FileReader.cpp */,
 				3F554B4596D5037062C9AD9D /* Lane.h */,
 				8477CCE6C816E7E1941086D6 /* Lane.cpp */,
+				FAFC2680239CF5AF003BFCF3 /* Constants.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
