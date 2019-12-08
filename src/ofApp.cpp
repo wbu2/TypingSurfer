@@ -207,7 +207,7 @@ void ofApp::drawLane(){
         for(int i = 0; i<lanes.size(); ++i){
             drawUserInput(player.GetLane());
             drawDisplayWords(i, lanes[i].GetWord()); //draw words user must type
-            if(lanes[i].GetWord() == user_input){
+            if(lanes[i].GetWord() == user_input && abs(player.GetLane() - i) < kNumLanes - 1){
                 user_input.clear();
                 lanes[i].SetWord(reader.GetFileWords()[ofRandom(reader.GetFileWords().size())]);
                 player.SetLane(i); //change car lane
@@ -276,3 +276,113 @@ bool ofApp::Collided(Obstacle o){
     return false;
 }
 
+void ofApp::drawRandomObstacle(){
+    /*
+     if current_obstale.size == 0
+     add obstacle to random lane
+     
+     if reached halfway
+     add new random obstacle
+     else
+     draw current obstacles
+     */
+    
+    if(current_obstacles.empty()){
+        Obstacle o;
+        o.SetLane(ofRandom(kNumLanes));
+        o.SetImage(car_images[ofRandom(car_images.size())]);
+        current_obstacles.push_back(o);
+    }
+    
+    int iterator = 0;
+    for(Obstacle o : current_obstacles){
+        if(o.ReachedHalfway()){
+            Obstacle l;
+            l.SetLane(ofRandom(kNumLanes));
+            l.SetSpeed(0);
+            l.SetImage(car_images[ofRandom(car_images.size())]);
+            current_obstacles.push_back(l);
+        }
+        
+        if(o.ReachedEnd()){
+            current_obstacles.erase(current_obstacles.begin() + iterator);
+        }
+        
+        if(Collided(o)){
+            current_state = ENDED;
+        }
+        iterator++;
+
+    }
+    for(Obstacle o : current_obstacles){
+        drawObstacle(o);
+    }
+    
+}
+
+void ofApp::UpdateObstacle(Obstacle &o){
+    int lane = o.GetLane();
+    
+    int down_magnitude;
+    int direction_magnitude;
+    
+    double x_coord;
+    double y_coord;
+    
+    switch (lane) {
+        case 0:
+            down_magnitude = 34;
+            direction_magnitude = 10;
+            
+            x_coord = ofGetWindowWidth() / 5 - direction_magnitude * o.GetSpeed();
+            y_coord = down_magnitude * o.GetSpeed();
+            o.SetPosition(x_coord, y_coord);
+            
+            if(o.ReachedEnd()){
+                lanes[lane-1].ChangeObstacle(false);
+                o.SetSpeed(0);
+            }
+            
+            lanes[lane].ChangeObstacle(true);
+            break;
+        case 1:
+            down_magnitude = 34;
+            direction_magnitude = 0;
+            
+            x_coord = 2 * ofGetWindowWidth() / 5;
+            y_coord = down_magnitude * o.GetSpeed();
+            
+            o.SetPosition(x_coord, y_coord);
+            
+            if(o.ReachedEnd()){
+                lanes[lane-1].ChangeObstacle(false);
+                o.SetSpeed(0);
+            }
+            lanes[lane].ChangeObstacle(true);
+            break;
+        case 2:
+            down_magnitude = 34;
+            direction_magnitude = 10;
+            
+            x_coord = 3 * ofGetWindowWidth() / 5 + direction_magnitude * o.GetSpeed();
+            y_coord = down_magnitude * o.GetSpeed();
+            
+            o.SetPosition(x_coord, y_coord);
+            
+            if(o.ReachedEnd()){
+                lanes[lane-1].ChangeObstacle(false);
+                o.SetSpeed(0);
+            }
+            lanes[lane].ChangeObstacle(true);
+            break;
+    }
+}
+
+void ofApp::drawScore(){
+    ofSetColor(0, 0, 0);
+    small_font.drawString(to_string((int)ofGetElapsedTimef()/60) + "M:" + to_string((int)ofGetElapsedTimef()) + "S", 15, 30);
+    small_font.drawString(to_string(words_typed) + "WORDS" , 15, 60);
+    score = 10 * words_typed + ofGetElapsedTimef();
+    small_font.drawString("SCORE" + to_string(score), 15, 90);
+    ofSetColor(255,255,255);
+}
