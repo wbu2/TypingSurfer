@@ -27,8 +27,6 @@ void ofApp::setup(){
     
     reader.ReadWords("input.txt");
     
-    
-    
     for(int i = 0; i< kNumLanes; ++i){
         Lane l;
         lanes.push_back(l);
@@ -137,17 +135,9 @@ void ofApp::drawGameStart(){
 }
 
 void ofApp::drawGameRunning(){
-    if(frame_counter == 2){
-        frame_counter = 0;
-    }else{
-        frame_counter++;
-    }
     
-    drawFrames(frame_counter);
-    
-    ofDrawLine(ofGetWindowWidth()/3, 0 , ofGetWindowWidth()/3, ofGetWindowHeight());
-    ofDrawLine(2 * (ofGetWindowWidth()/ 3), 0, 2 * (ofGetWindowWidth()/3), ofGetWindowHeight());
-    
+    drawFrames(ofRandom(kNumLanes));
+
     drawCar(player.GetLane());
     drawLane();
     drawRandomObstacle();

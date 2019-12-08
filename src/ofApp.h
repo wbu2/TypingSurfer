@@ -27,11 +27,6 @@ private:
     ofImage game_background;
     
     ofImage player_car;
-    ofImage car_beamer;
-    ofImage car_corvette;
-    ofImage car_gt;
-    ofImage car_romeo;
-    ofImage car_sonata;
     
     ofImage first_frame;
     ofImage second_frame;
@@ -42,17 +37,8 @@ private:
     
     ofxCenteredTrueTypeFont centered_font;
     
-    Lane left_lane;
-    Lane middle_lane;
-    Lane right_lane;
-    
-    Obstacle left_obstacle;
-    Obstacle middle_obstacle;
-    Obstacle right_obstacle;
-    
     vector<Lane> lanes;
     vector<ofImage> car_images;
-    vector<Obstacle> obstacles;
     vector<Obstacle> current_obstacles;
     
     Car player;
@@ -60,9 +46,7 @@ private:
     string user_input;
     
     FileReader reader;
-    
-    int frame_counter;
-    int Random;
+
     
 public:
 		void setup();
