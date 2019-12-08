@@ -3,6 +3,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    vid_player.load("start-vid.mov");
+ 
     start_background.load("start.jpg");
     game_background.load("game.jpg");
     
@@ -39,7 +41,13 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    switch (current_state) {
+        case START_SCREEN:
+            vid_player.update();
+            break;
+    }
     if(current_state == RUNNING){
+        vid_player.stop();
         int iterator = 0;
         for(Obstacle o : current_obstacles){
             o.SetSpeed(o.GetSpeed()+0.2);
@@ -128,7 +136,10 @@ void ofApp::windowResized(int w, int h){
 //--------------------------------------------------------------
 
 void ofApp::drawGameStart(){
-    start_background.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+    vid_player.setLoopState(OF_LOOP_NORMAL);
+    vid_player.play();
+    vid_player.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+    //start_background.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
     
     default_font.drawString("Type Race", ofGetWindowWidth() / 6, ofGetWindowHeight() / 5);
     small_font.drawString("Press 1 to Start", ofGetWindowWidth() / 6, ofGetWindowHeight() / 4);

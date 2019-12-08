@@ -29,6 +29,8 @@ private:
     ofImage second_frame;
     ofImage third_frame;
     
+    ofVideoPlayer vid_player;
+    
     ofTrueTypeFont default_font;
     ofTrueTypeFont small_font;
     
