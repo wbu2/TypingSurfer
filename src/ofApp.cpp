@@ -51,8 +51,10 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
     switch (current_state) {
         case START_SCREEN:
+            
             drawGameStart();
             break;
         case RUNNING:
@@ -62,13 +64,7 @@ void ofApp::draw(){
             
             break;
     }
-
-    /*if(current_state == START_SCREEN){
-        drawGameStart();
-    }
-    if(current_state == RUNNING){
-        drawGameRunning();
-    }*/
+    
     
 }
 
@@ -176,15 +172,15 @@ void ofApp::drawGameRunning(){
 
 void ofApp::drawCar(int lane){
     switch (lane) {
-        case 1:
+        case 0:
             player.SetPosition(ofGetWindowWidth()/10, 5* ofGetWindowHeight()/7);
             player_car.draw(ofGetWindowWidth()/10,  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
             break;
-        case 2:
+        case 1:
             player.SetPosition(4.5 * (ofGetWindowWidth()/10), 5* ofGetWindowHeight()/7);
             player_car.draw(4.5 * (ofGetWindowWidth()/10),  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
             break;
-        case 3:
+        case 2:
             player.SetPosition(7.8 * (ofGetWindowWidth()/10),5* ofGetWindowHeight()/7);
             player_car.draw(7.8 * (ofGetWindowWidth()/10),  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
             break;
@@ -199,12 +195,11 @@ void ofApp::drawLane(){
      if word == user_input then change word and change car direction
      word count: 370103
      */
-    int Random;
+    int rng = ofRandom(reader.GetFileWords().size());
     
     if(lanes[0].GetWord().size() == 0){
         for(int i = 0; i<lanes.size(); ++i){
-            Random = std::rand() % reader.GetFileWords().size();
-            lanes[i].SetWord(reader.GetFileWords()[Random]);
+            lanes[i].SetWord(reader.GetFileWords()[ofRandom(reader.GetFileWords().size())]);
             drawDisplayWords(i+1, lanes[i].GetWord());
             drawUserInput(player.GetLane());
         }
@@ -214,9 +209,8 @@ void ofApp::drawLane(){
             drawDisplayWords(i, lanes[i].GetWord()); //draw words user must type
             if(lanes[i].GetWord() == user_input){
                 user_input.clear();
-                Random = std::rand() % reader.GetFileWords().size();
-                lanes[i].SetWord(reader.GetFileWords()[Random]);
-                player.SetLane(i+1); //change car lane
+                lanes[i].SetWord(reader.GetFileWords()[ofRandom(reader.GetFileWords().size())]);
+                player.SetLane(i); //change car lane
             }
         }
     }
@@ -241,13 +235,13 @@ void ofApp::drawDisplayWords(int lane, string word){
 void ofApp::drawUserInput(int lane){
     ofSetColor(0, 0, 0);
     switch (lane) {
-        case 1:
+        case 0:
             centered_font.drawStringCentered(user_input, ofGetWindowWidth() / 6, ofGetWindowHeight() - 30);
             break;
-        case 2:
+        case 1:
             centered_font.drawStringCentered(user_input,  3 * (ofGetWindowWidth() / 6), ofGetWindowHeight() - 30);
             break;
-        case 3:
+        case 2:
             centered_font.drawStringCentered(user_input, 5 * (ofGetWindowWidth() / 6), ofGetWindowHeight() - 30);
             break;
     }
@@ -276,7 +270,7 @@ void ofApp::drawObstacles(int lane, double speed, ofImage image){
     double y_coord;
     
     switch (lane) {
-        case 1:
+        case 0:
             down_magnitude = 34;
             direction_magnitude = 10;
             
@@ -290,9 +284,10 @@ void ofApp::drawObstacles(int lane, double speed, ofImage image){
             }
             image.draw(x_coord,y_coord, ofGetWindowHeight()/5, ofGetWindowHeight()/5);
             break;
-        case 2:
+        case 1:
             down_magnitude = 34;
             direction_magnitude = 0;
+            
             x_coord = 2 * ofGetWindowWidth() / 5;
             y_coord = down_magnitude * speed;
             middle_obstacle.SetPosition(x_coord, y_coord);
@@ -303,7 +298,7 @@ void ofApp::drawObstacles(int lane, double speed, ofImage image){
             
             image.draw(x_coord, y_coord, ofGetWindowHeight() / 5, ofGetWindowHeight() / 5);
             break;
-        case 3:
+        case 2:
             down_magnitude = 34;
             direction_magnitude = 10;
             x_coord = 3 * ofGetWindowWidth() / 5 + direction_magnitude * speed;
