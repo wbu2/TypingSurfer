@@ -30,3 +30,10 @@ I managed to draw obstacles in each lane but am unable to figure out how to rand
 * Need to make game end menu 
 * Need to add buttons
 * Need to add scoring system
+
+## 12/7
+I decided that I would randomize by adding an obstacle after the first osbstacle reached the halfway mark. One pesky issue I ran into was that when my drawObstacle function changed the position of a passed in obstacle, the actual obstacle did not have its position changed. I realized that I needed to make the passed in object a reference to the actual object. However, my game kept crashing. I realized that the way I moved obstacles did not account for the non-uniform movement of random obstacles. This allowed drawing of a random obstacle until it reached the halfway point where my game crashed again. I fixed this after I realized I had to split my drawGame and updating the obstacle position. I created two separate functions and utilized ofApp::update() to fix this issue. I have finished MVP minus the score tracking system.
+* Need to clean up code
+* Need to make game end menu
+* Need to add stylistic touches such as buttons
+* Need to add scoring system
