@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxCenteredTrueTypeFont.h"
 #include "Lane.h"
-#include "car.h"
+#include "Player.h"
 #include "FileReader.h"
 #include "Obstacle.h"
 
@@ -41,7 +41,7 @@ private:
     vector<ofImage> car_images;
     vector<Obstacle> current_obstacles;
     
-    Car player;
+    Player player;
     
     string user_input;
     
@@ -65,7 +65,7 @@ public:
     void drawGameStart();
     void drawGameRunning();
     void drawLaneMarkers();
-    void drawCar(int lane);
+    void drawPlayer(int lane);
     void drawLane();
     void drawDisplayWords(int lane, string word);
     void drawUserInput(int lane);

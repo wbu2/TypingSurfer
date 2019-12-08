@@ -1,7 +1,7 @@
 #pragma once
 #include "ofMain.h"
 
-class Car{
+class Player{
 private:
     int lane = 2; //1 = left, 2= middle, 3 = right
     ofVec2f position;

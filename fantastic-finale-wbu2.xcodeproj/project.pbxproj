@@ -18,7 +18,7 @@
 		AABCF40C5B8FA059BCB51FCD /* FileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C53C1C3740901A7E707F6F5C /* FileReader.cpp */; };
 		B266578FC55D23BFEBC042E7 /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECF8674C7975F1063C5E30CA /* ofxGuiGroup.cpp */; };
 		B56FE57CC35806596D38118C /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 802251BAF1B35B1D67B32FD0 /* ofxSliderGroup.cpp */; };
-		B59B524F5B71C679640188EB /* car.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 954D99FD0CFC4637D618990E /* car.cpp */; };
+		B59B524F5B71C679640188EB /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 954D99FD0CFC4637D618990E /* Player.cpp */; };
 		C5B699CBF5517F15462CC6DE /* Lane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8477CCE6C816E7E1941086D6 /* Lane.cpp */; };
 		E27CAC56B295CCE7DA8BA264 /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B66B1757FB776A0A7FEB7B /* Obstacle.cpp */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
@@ -60,14 +60,14 @@
 		87F26B4B24CBD428AD9EEBAA /* ofxBaseGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxBaseGui.h; path = ../../../addons/ofxGui/src/ofxBaseGui.h; sourceTree = SOURCE_ROOT; };
 		89449E3044D456F7DE7BEA14 /* ofxPanel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxPanel.h; path = ../../../addons/ofxGui/src/ofxPanel.h; sourceTree = SOURCE_ROOT; };
 		907C5B5E104864A2D3A25745 /* ofxToggle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxToggle.cpp; path = ../../../addons/ofxGui/src/ofxToggle.cpp; sourceTree = SOURCE_ROOT; };
-		954D99FD0CFC4637D618990E /* car.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = car.cpp; path = src/car.cpp; sourceTree = SOURCE_ROOT; };
+		954D99FD0CFC4637D618990E /* Player.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Player.cpp; path = src/Player.cpp; sourceTree = SOURCE_ROOT; };
 		9604B925D32EE39065747725 /* ofxBaseGui.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxBaseGui.cpp; path = ../../../addons/ofxGui/src/ofxBaseGui.cpp; sourceTree = SOURCE_ROOT; };
 		96B66B1757FB776A0A7FEB7B /* Obstacle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Obstacle.cpp; path = src/Obstacle.cpp; sourceTree = SOURCE_ROOT; };
 		A852AD3A75FDFD790A24855A /* CreEPS.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = CreEPS.hpp; path = ../../../addons/ofxVectorGraphics/libs/CreEPS.hpp; sourceTree = SOURCE_ROOT; };
 		AE68B54581BE4A1DAE853180 /* ofxInputField.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxInputField.h; path = ../../../addons/ofxGui/src/ofxInputField.h; sourceTree = SOURCE_ROOT; };
 		B87C60311EC1FE841C1ECD89 /* ofxLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxLabel.h; path = ../../../addons/ofxGui/src/ofxLabel.h; sourceTree = SOURCE_ROOT; };
 		BA274EC7A169D538BD43A5D8 /* ofxGuiUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxGuiUtils.h; path = ../../../addons/ofxGui/src/ofxGuiUtils.h; sourceTree = SOURCE_ROOT; };
-		BFCFADA7BC9A032634CFC2D3 /* car.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = car.h; path = src/car.h; sourceTree = SOURCE_ROOT; };
+		BFCFADA7BC9A032634CFC2D3 /* Player.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Player.h; path = src/Player.h; sourceTree = SOURCE_ROOT; };
 		C53C1C3740901A7E707F6F5C /* FileReader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = FileReader.cpp; path = src/FileReader.cpp; sourceTree = SOURCE_ROOT; };
 		C70D8946940288799E82131E /* ofxSliderGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxSliderGroup.h; path = ../../../addons/ofxGui/src/ofxSliderGroup.h; sourceTree = SOURCE_ROOT; };
 		C88333E71C9457E441C33474 /* ofxButton.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxButton.cpp; path = ../../../addons/ofxGui/src/ofxButton.cpp; sourceTree = SOURCE_ROOT; };
@@ -671,8 +671,8 @@
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E9B428B79E8CA2014B60BAFB /* Obstacle.h */,
 				96B66B1757FB776A0A7FEB7B /* Obstacle.cpp */,
-				BFCFADA7BC9A032634CFC2D3 /* car.h */,
-				954D99FD0CFC4637D618990E /* car.cpp */,
+				BFCFADA7BC9A032634CFC2D3 /* Player.h */,
+				954D99FD0CFC4637D618990E /* Player.cpp */,
 				E84DB0C0502A5D95399A4A6A /* FileReader.h */,
 				C53C1C3740901A7E707F6F5C /* FileReader.cpp */,
 				3F554B4596D5037062C9AD9D /* Lane.h */,
@@ -782,7 +782,7 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				E27CAC56B295CCE7DA8BA264 /* Obstacle.cpp in Sources */,
-				B59B524F5B71C679640188EB /* car.cpp in Sources */,
+				B59B524F5B71C679640188EB /* Player.cpp in Sources */,
 				AABCF40C5B8FA059BCB51FCD /* FileReader.cpp in Sources */,
 				C5B699CBF5517F15462CC6DE /* Lane.cpp in Sources */,
 				856AA354D08AB4B323081444 /* ofxBaseGui.cpp in Sources */,

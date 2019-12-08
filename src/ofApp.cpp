@@ -138,14 +138,14 @@ void ofApp::drawGameRunning(){
     
     drawFrames(ofRandom(kNumLanes));
 
-    drawCar(player.GetLane());
+    drawPlayer(player.GetLane());
     drawLane();
     drawRandomObstacle();
     drawScore();
     
 }
 
-void ofApp::drawCar(int lane){
+void ofApp::drawPlayer(int lane){
     switch (lane) {
         case 0:
             player.SetPosition(ofGetWindowWidth()/10, 5* ofGetWindowHeight()/7);
