@@ -27,6 +27,6 @@ I decided that I will continue with my original linear perspective idea as I rea
 I managed to draw obstacles in each lane but am unable to figure out how to randomize this process. I also managed to have collision working. 
 * Need to randomize obstacles
 * Need to clean up code
-* Need to made game end menu 
+* Need to make game end menu 
 * Need to add buttons
 * Need to add scoring system
