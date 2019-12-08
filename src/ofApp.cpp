@@ -44,8 +44,14 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     if(current_state == RUNNING){
-        obstacle_speed += 0.2;
-        
+        int iterator = 0;
+        for(Obstacle o : current_obstacles){
+            o.SetSpeed(o.GetSpeed()+0.2);
+            UpdateObstacle(o);
+            current_obstacles[iterator] = o;
+            iterator++;
+            
+        }
     }
 }
 
@@ -145,28 +151,10 @@ void ofApp::drawGameRunning(){
     ofDrawLine(ofGetWindowWidth()/3, 0 , ofGetWindowWidth()/3, ofGetWindowHeight());
     ofDrawLine(2 * (ofGetWindowWidth()/ 3), 0, 2 * (ofGetWindowWidth()/3), ofGetWindowHeight());
     
-    drawLane();
     drawCar(player.GetLane());
-    
-    for(int i = 1; i <= obstacles.size(); ++i){
-        drawObstacles(i, obstacle_speed, car_beamer);
-        if(obstacles[i-1].GetPosition().y > player.GetPosition().y){
-            current_state = ENDED;
-        }
-        cout << obstacles[i-1].GetPosition().y << endl;
-        cout << player.GetPosition().y << endl;
-    }
-    
-    for(int i = 1; i<= kNumLanes; ++i){
-        drawObstacles(i, obstacle_speed, car_gt);
-        if(ObstacleIntersects()){
-            current_state = ENDED;
-        }
-    }
-    /*drawObstacles(1, obstacle_speed, car_beamer);
-    drawObstacles(2, obstacle_speed, car_gt);
-    drawObstacles(3, obstacle_speed, car_corvette);*/
-    
+    drawLane();
+    drawRandomObstacle();
+    drawScore();
     
 }
 
@@ -209,6 +197,7 @@ void ofApp::drawLane(){
             drawDisplayWords(i, lanes[i].GetWord()); //draw words user must type
             if(lanes[i].GetWord() == user_input && abs(player.GetLane() - i) < kNumLanes - 1){
                 user_input.clear();
+                words_typed++;
                 lanes[i].SetWord(reader.GetFileWords()[ofRandom(reader.GetFileWords().size())]);
                 player.SetLane(i); //change car lane
             }

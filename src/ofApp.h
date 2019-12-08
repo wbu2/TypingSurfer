@@ -19,9 +19,8 @@ private:
     GameState current_state = START_SCREEN;
     
     int kNumLanes = 3;
-    
-    double obstacle_speed;
-    
+    int words_typed = 0;
+    int score = 0;
     ofImage start_background;
     ofImage game_background;
     
@@ -49,9 +48,10 @@ private:
     Obstacle middle_obstacle;
     Obstacle right_obstacle;
     
-    vector<Lane> lanes  = {left_lane, middle_lane, right_lane};
-    vector<ofImage> car_images = {car_beamer, car_corvette, car_gt, car_romeo, car_sonata};
-    vector<Obstacle> obstacles = {left_obstacle, middle_obstacle, right_obstacle};
+    vector<Lane> lanes;
+    vector<ofImage> car_images;
+    vector<Obstacle> obstacles;
+    vector<Obstacle> current_obstacles;
     
     Car player;
     
@@ -60,6 +60,7 @@ private:
     FileReader reader;
     
     int frame_counter;
+    int Random;
     
 public:
 		void setup();
@@ -83,6 +84,9 @@ public:
     void drawDisplayWords(int lane, string word);
     void drawUserInput(int lane);
     void drawFrames(int frame);
-    void drawObstacles(int lane, double speed, ofImage image);
-    bool ObstacleIntersects();
+    void drawObstacle(Obstacle o);
+    bool Collided(Obstacle o);
+    void drawRandomObstacle();
+    void UpdateObstacle(Obstacle &o);
+    void drawScore();
 };
