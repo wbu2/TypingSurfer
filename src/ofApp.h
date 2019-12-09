@@ -29,12 +29,15 @@ private:
     ofImage second_frame;
     ofImage third_frame;
     
+    ofFile score_board;
+    
     ofVideoPlayer vid_player;
     
     ofTrueTypeFont default_font;
     ofTrueTypeFont small_font;
     
     ofxCenteredTrueTypeFont centered_font;
+    ofxCenteredTrueTypeFont large_centered_font;
     
     vector<Lane> lanes;
     vector<ofImage> car_images;
@@ -74,4 +77,5 @@ public:
     void drawRandomObstacle();
     void UpdateObstacle(Obstacle &o);
     void drawScore();
+    void drawGameEnd();
 };

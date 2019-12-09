@@ -4,11 +4,13 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     vid_player.load("start-vid.mov");
- 
+    
+    score_board.open("leaderboard.txt", ofFile::Append);
+
     start_background.load("start.jpg");
     game_background.load("game.jpg");
     
-    player_car.load("romeo.png");
+    player_car.load(constants::kCarImagePath + "/car-1.png");
     
     ofDirectory dir(constants::kCarImagePath);
     dir.listDir();
@@ -17,7 +19,7 @@ void ofApp::setup(){
         img.load(constants::kCarImagePath + "/" + dir.getName(i));
         car_images.push_back(img);
     }
-
+    
     first_frame.load("frame-1.jpg");
     second_frame.load("frame-2.jpg");
     third_frame.load("frame-3.jpg");
@@ -25,6 +27,7 @@ void ofApp::setup(){
     default_font.load("joystix monospace.ttf", 70);
     small_font.load("joystix monospace.ttf", 30);
     centered_font.load("joystix monospace.ttf", 10);
+    large_centered_font.load("joystix monospace.ttf", 80);
     
     user_input = "";
     
@@ -45,17 +48,16 @@ void ofApp::update(){
         case START_SCREEN:
             vid_player.update();
             break;
-    }
-    if(current_state == RUNNING){
-        vid_player.stop();
-        int iterator = 0;
-        for(Obstacle o : current_obstacles){
-            o.SetSpeed(o.GetSpeed()+0.2);
-            UpdateObstacle(o);
-            current_obstacles[iterator] = o;
-            iterator++;
-            
-        }
+        case RUNNING:
+            vid_player.stop();
+            int iterator = 0;
+            for(Obstacle o : current_obstacles){
+                o.SetSpeed(o.GetSpeed()+0.2);
+                UpdateObstacle(o);
+                current_obstacles[iterator] = o;
+                iterator++;
+            }
+        break;
     }
 }
 
@@ -71,7 +73,7 @@ void ofApp::draw(){
             drawGameRunning();
             break;
         case ENDED:
-            
+            drawGameEnd();
             break;
     }
     
@@ -80,16 +82,30 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if(current_state == START_SCREEN && key == '1'){
-        current_state = RUNNING;
-    }else if(current_state == RUNNING){
-        user_input += (char) key;
-        if(key == OF_KEY_BACKSPACE){
-            if(!user_input.empty()){
-                user_input.pop_back();
+    switch (current_state) {
+        case START_SCREEN:
+            if(key == '1'){
+                current_state = RUNNING;
+                user_input.clear();
             }
+            break;
+        case RUNNING:
+            user_input += (char) key;
+            break;
+        case ENDED:
+            user_input += (char) key;
+            if(key == OF_KEY_RETURN){
+                score_board << user_input + "\n";
+            }
+            break;
+    }
+    
+    if(key == OF_KEY_BACKSPACE){
+       
+        if(!user_input.empty()){
             user_input.pop_back();
         }
+        user_input.pop_back();
     }
 }
 
@@ -149,7 +165,7 @@ void ofApp::drawGameStart(){
 void ofApp::drawGameRunning(){
     
     drawFrames(ofRandom(constants::kNumLanes));
-
+    
     drawPlayer(player.GetLane());
     drawLane();
     drawRandomObstacle();
@@ -300,7 +316,7 @@ void ofApp::drawRandomObstacle(){
             current_state = ENDED;
         }
         iterator++;
-
+        
     }
     for(Obstacle o : current_obstacles){
         drawObstacle(o);
@@ -373,4 +389,20 @@ void ofApp::drawScore(){
     score = 10 * words_typed + ofGetElapsedTimef();
     small_font.drawString("SCORE" + to_string(score), 15, 90);
     ofSetColor(255,255,255);
+}
+
+void ofApp::drawGameEnd(){
+    large_centered_font.drawStringCentered("GAME OVER", ofGetWindowWidth() / 2, ofGetWindowHeight() / 5);
+    centered_font.drawStringCentered(user_input, ofGetWindowWidth() / 6, ofGetWindowHeight() - 30);
+    
+    vector<int> scores;
+    scores.push_back(score);
+    reader.ClearWords();
+    reader.ReadWords("leaderboard.txt");
+    for(int i = 0; i < 5; ++i){
+        int score = stoi(reader.GetFileWords()[i]);
+        scores.push_back(score);
+    }
+    sort(scores.begin(), scores.end(), greater<int>());
+    
 }
