@@ -5,12 +5,15 @@
 void ofApp::setup(){
     vid_player.load("start-vid.mov");
     
+<<<<<<< Updated upstream
     score_board.open("leaderboard.txt", ofFile::Append);
 
+=======
+    score_board.open("leaderboard.txt", ofFile::ReadWrite);
+    
+>>>>>>> Stashed changes
     start_background.load("start.jpg");
     game_background.load("game.jpg");
-    
-    player_car.load(constants::kCarImagePath + "/car-1.png");
     
     ofDirectory dir(constants::kCarImagePath);
     dir.listDir();
@@ -20,13 +23,16 @@ void ofApp::setup(){
         car_images.push_back(img);
     }
     
+    player_car = car_images[ofRandom(car_images.size())];
+    
     first_frame.load("frame-1.jpg");
     second_frame.load("frame-2.jpg");
     third_frame.load("frame-3.jpg");
     
     default_font.load("joystix monospace.ttf", 70);
     small_font.load("joystix monospace.ttf", 30);
-    centered_font.load("joystix monospace.ttf", 10);
+    small_centered_font.load("joystix monospace.ttf", 15);
+    medium_centered_font.load("joystix monospace.ttf", 40);
     large_centered_font.load("joystix monospace.ttf", 80);
     
     user_input = "";
@@ -49,15 +55,16 @@ void ofApp::update(){
             vid_player.update();
             break;
         case RUNNING:
+            IncreaseDifficulty();
             vid_player.stop();
             int iterator = 0;
             for(Obstacle o : current_obstacles){
-                o.SetSpeed(o.GetSpeed()+0.2);
+                o.SetSpeed(o.GetSpeed()+constants::kObstacleSpeed);
                 UpdateObstacle(o);
                 current_obstacles[iterator] = o;
                 iterator++;
             }
-        break;
+            break;
     }
 }
 
@@ -84,13 +91,13 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
     switch (current_state) {
         case START_SCREEN:
-            if(key == '1'){
+            if(key == ' '){
                 current_state = RUNNING;
-                user_input.clear();
             }
             break;
         case RUNNING:
             user_input += (char) key;
+<<<<<<< Updated upstream
             break;
         case ENDED:
             user_input += (char) key;
@@ -107,6 +114,38 @@ void ofApp::keyPressed(int key){
         }
         user_input.pop_back();
     }
+=======
+            if(key == OF_KEY_BACKSPACE){
+                user_input.pop_back(); //removes the back space character added
+                user_input.pop_back(); //removes the desired last letter
+            }
+            break;
+        case ENDED:
+            user_name += (char) key;
+            if(key == OF_KEY_BACKSPACE){
+                user_name.pop_back();
+                user_name.pop_back();
+            }
+            /*if(key == OF_KEY_RETURN){
+             map<int, string, greater<int>> leaderboard = CreateLeaderboard();
+             string score_board_string = "";
+             map<int,string> :: iterator it;
+             for (it=leaderboard.begin() ; it!=leaderboard.end() ; it++){
+             score_board_string = score_board_string + (*it).second + to_string((*it).first);
+             cout << score_board_string << endl;
+             }
+             string write_line = to_string(score) + user_name;
+             
+             score_board << write_line;
+             score_board << score_board_string;
+             done_typing = true;
+             }*/
+            if(key == 'r'){
+                current_state = START_SCREEN;
+            }
+            break;
+    }
+>>>>>>> Stashed changes
 }
 
 //--------------------------------------------------------------
@@ -154,11 +193,10 @@ void ofApp::windowResized(int w, int h){
 void ofApp::drawGameStart(){
     vid_player.setLoopState(OF_LOOP_NORMAL);
     vid_player.play();
-    vid_player.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-    //start_background.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+    vid_player.draw(constants::kStartScreenVideoX, constants::kStartScreenVideoY, constants::kMainWindowWidth, constants::kMainWindowHeight);
     
-    default_font.drawString("Type Race", ofGetWindowWidth() / 6, ofGetWindowHeight() / 5);
-    small_font.drawString("Press 1 to Start", ofGetWindowWidth() / 6, ofGetWindowHeight() / 4);
+    large_centered_font.drawStringCentered(constants::kGameTitle, constants::kGameTitleCenterX, constants::kGameTitleCenterCenterY);
+    medium_centered_font.drawStringCentered(constants::kStartMessage, constants::kStartMessageCenterX, constants::kStartMessageCenterY);
     
 }
 
@@ -174,18 +212,19 @@ void ofApp::drawGameRunning(){
 }
 
 void ofApp::drawPlayer(int lane){
+    
     switch (lane) {
         case 0:
-            player.SetPosition(ofGetWindowWidth()/10, 5* ofGetWindowHeight()/7);
-            player_car.draw(ofGetWindowWidth()/10,  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
+            player.SetPosition(constants::kLeftPlayerX, constants::kPlayerY);
+            player_car.draw(constants::kLeftPlayerX,  constants::kPlayerY, constants::kCarWidth,constants::kCarLength);
             break;
         case 1:
-            player.SetPosition(4.5 * (ofGetWindowWidth()/10), 5* ofGetWindowHeight()/7);
-            player_car.draw(4.5 * (ofGetWindowWidth()/10),  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
+            player.SetPosition(constants::kMiddlePlayerX, constants::kPlayerY);
+            player_car.draw(constants::kMiddlePlayerX,  constants::kPlayerY, constants::kCarWidth, constants::kCarLength);
             break;
         case 2:
-            player.SetPosition(7.8 * (ofGetWindowWidth()/10),5* ofGetWindowHeight()/7);
-            player_car.draw(7.8 * (ofGetWindowWidth()/10),  5* ofGetWindowHeight()/7 , ofGetWindowWidth()/5,ofGetWindowWidth()/5);
+            player.SetPosition(constants::kRightPlayerX,constants::kPlayerY);
+            player_car.draw(constants::kRightPlayerX, constants::kPlayerY, constants::kCarWidth,constants::kCarLength);
             break;
     }
     
@@ -203,7 +242,7 @@ void ofApp::drawLane(){
     if(lanes[0].GetWord().size() == 0){
         for(int i = 0; i<lanes.size(); ++i){
             lanes[i].SetWord(reader.GetFileWords()[ofRandom(reader.GetFileWords().size())]);
-            drawDisplayWords(i+1, lanes[i].GetWord());
+            drawDisplayWords(i, lanes[i].GetWord());
             drawUserInput(player.GetLane());
         }
     }else{
@@ -221,54 +260,54 @@ void ofApp::drawLane(){
 }
 
 void ofApp::drawDisplayWords(int lane, string word){
-    ofSetColor(0, 0, 0);
+    ofSetColor(ofColor::black);
     switch (lane) {
         case 0:
-            centered_font.drawStringCentered(word, ofGetWindowWidth() / 6, ofGetWindowHeight() - 15);
+            small_centered_font.drawStringCentered(word, constants::kLeftDisplayWordCenterX, constants::kDisplayWordCenterY);
             break;
         case 1:
-            centered_font.drawStringCentered(word, 3 * (ofGetWindowWidth() / 6), ofGetWindowHeight() - 15);
+            small_centered_font.drawStringCentered(word, constants::kMiddleDisplayWordCenterX, constants::kDisplayWordCenterY);
             break;
         case 2:
-            centered_font.drawStringCentered(word, 5 * (ofGetWindowWidth() / 6), ofGetWindowHeight() - 15);
+            small_centered_font.drawStringCentered(word, constants::kRightDisplayWordCenterX, constants::kDisplayWordCenterY);
             break;
     }
-    ofSetColor(255,255,255);
+    ofSetColor(ofColor::white);
 }
 
 void ofApp::drawUserInput(int lane){
-    ofSetColor(0, 0, 0);
+    ofSetColor(ofColor::black);
     switch (lane) {
         case 0:
-            centered_font.drawStringCentered(user_input, ofGetWindowWidth() / 6, ofGetWindowHeight() - 30);
+            small_centered_font.drawStringCentered(user_input, constants::kLeftDisplayWordCenterX, constants::kUserInputCenterY);
             break;
         case 1:
-            centered_font.drawStringCentered(user_input,  3 * (ofGetWindowWidth() / 6), ofGetWindowHeight() - 30);
+            small_centered_font.drawStringCentered(user_input,  constants::kMiddleDisplayWordCenterX,  constants::kUserInputCenterY);
             break;
         case 2:
-            centered_font.drawStringCentered(user_input, 5 * (ofGetWindowWidth() / 6), ofGetWindowHeight() - 30);
+            small_centered_font.drawStringCentered(user_input, constants::kRightDisplayWordCenterX, constants::kUserInputCenterY);
             break;
     }
-    ofSetColor(255,255,255);
+    ofSetColor(ofColor::white);
 }
 
 void ofApp::drawFrames(int frame){
     switch (frame) {
         case 0:
-            first_frame.draw(0,0,ofGetWindowWidth(), ofGetWindowHeight());
+            first_frame.draw(0,0,constants::kMainWindowWidth, constants::kMainWindowHeight);
             break;
         case 1:
-            second_frame.draw(0,0,ofGetWindowWidth(), ofGetWindowHeight());
+            second_frame.draw(0,0,constants::kMainWindowWidth, constants::kMainWindowHeight);
             break;
         case 2:
-            third_frame.draw(0,0,ofGetWindowWidth(), ofGetWindowHeight());
+            third_frame.draw(0,0,constants::kMainWindowWidth, constants::kMainWindowHeight);
             break;
     }
 }
 
 void ofApp::drawObstacle(Obstacle o){
     if(o.GetPosition().x != 0){
-        o.GetImage().draw(o.GetPosition(), ofGetWindowHeight()/5, ofGetWindowHeight()/5);
+        o.GetImage().draw(o.GetPosition(), constants::kCarWidth, constants::kCarLength);
     }
     
 }
@@ -327,71 +366,36 @@ void ofApp::drawRandomObstacle(){
 void ofApp::UpdateObstacle(Obstacle &o){
     int lane = o.GetLane();
     
-    int down_magnitude;
-    int direction_magnitude;
-    
-    double x_coord;
-    double y_coord;
-    
     switch (lane) {
         case 0:
-            down_magnitude = 34;
-            direction_magnitude = 10;
-            
-            x_coord = ofGetWindowWidth() / 5 - direction_magnitude * o.GetSpeed();
-            y_coord = down_magnitude * o.GetSpeed();
-            o.SetPosition(x_coord, y_coord);
-            
-            if(o.ReachedEnd()){
-                lanes[lane-1].ChangeObstacle(false);
-                o.SetSpeed(0);
-            }
-            
-            lanes[lane].ChangeObstacle(true);
+            o.SetPosition(constants::kLeftObstacleStartX - constants::kDirectionMagnitude * o.GetSpeed(), constants::kDownMagnitude * o.GetSpeed());
             break;
         case 1:
-            down_magnitude = 34;
-            direction_magnitude = 0;
-            
-            x_coord = 2 * ofGetWindowWidth() / 5;
-            y_coord = down_magnitude * o.GetSpeed();
-            
-            o.SetPosition(x_coord, y_coord);
-            
-            if(o.ReachedEnd()){
-                lanes[lane-1].ChangeObstacle(false);
-                o.SetSpeed(0);
-            }
-            lanes[lane].ChangeObstacle(true);
+            o.SetPosition(constants::kMiddleObstacleStartX, constants::kDownMagnitude * o.GetSpeed());
             break;
         case 2:
-            down_magnitude = 34;
-            direction_magnitude = 10;
-            
-            x_coord = 3 * ofGetWindowWidth() / 5 + direction_magnitude * o.GetSpeed();
-            y_coord = down_magnitude * o.GetSpeed();
-            
-            o.SetPosition(x_coord, y_coord);
-            
-            if(o.ReachedEnd()){
-                lanes[lane-1].ChangeObstacle(false);
-                o.SetSpeed(0);
-            }
-            lanes[lane].ChangeObstacle(true);
+            o.SetPosition(constants::kRightObstacleStartX + constants::kDirectionMagnitude * o.GetSpeed(), constants::kDownMagnitude * o.GetSpeed());
             break;
+    }
+    if(o.ReachedEnd()){
+        o.SetSpeed(0);
     }
 }
 
 void ofApp::drawScore(){
-    ofSetColor(0, 0, 0);
-    small_font.drawString(to_string((int)ofGetElapsedTimef()/60) + "M:" + to_string((int)ofGetElapsedTimef()) + "S", 15, 30);
-    small_font.drawString(to_string(words_typed) + "WORDS" , 15, 60);
-    score = 10 * words_typed + ofGetElapsedTimef();
-    small_font.drawString("SCORE" + to_string(score), 15, 90);
-    ofSetColor(255,255,255);
+    ofSetColor(ofColor::black);
+    
+    small_font.drawString(to_string((int)ofGetElapsedTimef()/60) + ":" + to_string((int)ofGetElapsedTimef()), constants::kTimerX, constants::kLiveTrackerY);
+    small_font.drawString(to_string(words_typed), constants::kWordCountX, constants::kLiveTrackerY);
+    
+    score = constants::kWordsTypedScoreWeight * words_typed + ofGetElapsedTimef();
+    small_font.drawString(to_string(score), constants::kScoreX, constants::kLiveTrackerY);
+    
+    ofSetColor(ofColor::white);
 }
 
 void ofApp::drawGameEnd(){
+<<<<<<< Updated upstream
     large_centered_font.drawStringCentered("GAME OVER", ofGetWindowWidth() / 2, ofGetWindowHeight() / 5);
     centered_font.drawStringCentered(user_input, ofGetWindowWidth() / 6, ofGetWindowHeight() - 30);
     
@@ -406,3 +410,45 @@ void ofApp::drawGameEnd(){
     sort(scores.begin(), scores.end(), greater<int>());
     
 }
+=======
+    large_centered_font.drawStringCentered(constants::kEndMessage, constants::kEndMessageCenterX, constants::kEndMessageCenterY);
+    large_centered_font.drawStringCentered(to_string(score), constants::kEndScoreCenterX, constants::kEndScoreCenterY);
+    //small_centered_font.drawStringCentered("Enter Name: " + user_name, ofGetWindowWidth() / 2, ofGetWindowHeight() / 3);
+    
+    /*if(done_typing){
+     drawLeaderboard();
+     }*/
+}
+
+void ofApp::IncreaseDifficulty(){
+    ofSetFrameRate( constants::kDifficultyMultiplier * ofGetElapsedTimef() * ofGetElapsedTimef() + constants::kBaseFrameRate);
+    cout << ofGetFrameRate() << endl;
+}
+
+/*map<int,string, greater<int>> ofApp::CreateLeaderboard(){
+ map<int, string, greater<int>> score_entries;
+ reader.ClearWords();
+ reader.ReadWords("leaderboard.txt");
+ 
+ score_entries.insert(pair<int, string>(score, user_name));
+ for(int i = 0; i < reader.GetFileWords().size(); ++i){
+ int score = stoi(reader.GetFileWords()[i]);
+ string name = reader.GetFileWords()[i].erase(0,to_string(score).length());
+ score_entries.insert(pair<int, string>(score, name));
+ }
+ 
+ return score_entries;
+ }*/
+
+/*void ofApp::drawLeaderboard(){
+ map<int, string, greater<int>> leaderboard = CreateLeaderboard();
+ string score_board_string = "";
+ map<int,string> :: iterator it;
+ for (it=leaderboard.begin() ; it!=leaderboard.end() ; it++){
+ score_board_string = score_board_string + (*it).second + ": " + to_string((*it).first) + "\n";
+ cout << score_board_string << endl;
+ }
+ 
+ small_centered_font.drawStringCentered(score_board_string, ofGetWindowWidth() / 2, ofGetWindowHeight() / 2);
+ }*/
+>>>>>>> Stashed changes

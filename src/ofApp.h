@@ -36,8 +36,9 @@ private:
     ofTrueTypeFont default_font;
     ofTrueTypeFont small_font;
     
-    ofxCenteredTrueTypeFont centered_font;
+    ofxCenteredTrueTypeFont small_centered_font;
     ofxCenteredTrueTypeFont large_centered_font;
+    ofxCenteredTrueTypeFont medium_centered_font;
     
     vector<Lane> lanes;
     vector<ofImage> car_images;
@@ -48,6 +49,8 @@ private:
     string user_input;
     
     FileReader reader;
+    
+
 
     
 public:
@@ -78,4 +81,10 @@ public:
     void UpdateObstacle(Obstacle &o);
     void drawScore();
     void drawGameEnd();
+<<<<<<< Updated upstream
+=======
+    map<int,string, greater<int>> CreateLeaderboard();
+    void drawLeaderboard();
+    void IncreaseDifficulty();
+>>>>>>> Stashed changes
 };
