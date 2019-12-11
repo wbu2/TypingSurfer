@@ -19,8 +19,7 @@ private:
     int words_typed = 0;
     int score = 0;
 
-    ofImage start_background;
-    ofImage game_background;
+    ofImage game_end_image;
     
     ofImage player_car;
     
@@ -42,6 +41,7 @@ private:
     vector<Lane> lanes;
     vector<ofImage> car_images;
     vector<Obstacle> current_obstacles;
+    vector<ofImage> frame_images;
     
     Player player;
     

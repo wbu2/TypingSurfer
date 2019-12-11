@@ -15,3 +15,11 @@ ofVec2f Player::GetPosition(){
 void Player::SetPosition(int x, int y){
     position.set(x, y);
 }
+
+ofImage Player::GetImage(){
+    return image;
+}
+
+void Player::SetImage(ofImage img){
+    image = img;
+}

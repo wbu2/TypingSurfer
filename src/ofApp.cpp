@@ -4,23 +4,24 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     vid_player.load("start-vid.mov");
+    game_end_image.load(constants::kImagePath + "/" + "game_end.png");
     
-    start_background.load("start.jpg");
-    game_background.load("game.jpg");
     
-    ofDirectory dir(constants::kCarImagePath);
+    ofDirectory dir(constants::kImagePath);
     dir.listDir();
-    for(int i = 0; i<dir.size(); ++i){
+    for(int i = 0; i < dir.size(); ++i){
         ofImage img;
-        img.load(constants::kCarImagePath + "/" + dir.getName(i));
-        car_images.push_back(img);
+        img.load(constants::kImagePath + "/" + dir.getName(i));
+        if (dir.getName(i).find("car") != std::string::npos) {
+            car_images.push_back(img);
+        }
+        if (dir.getName(i).find("frame") != std::string::npos) {
+            frame_images.push_back(img);
+        }
     }
     
     player_car = car_images[ofRandom(car_images.size())];
-    
-    first_frame.load("frame-1.jpg");
-    second_frame.load("frame-2.jpg");
-    third_frame.load("frame-3.jpg");
+    player.SetImage(car_images[ofRandom(car_images.size())]);
     
     default_font.load("joystix monospace.ttf", 70);
     small_font.load("joystix monospace.ttf", 30);
@@ -186,19 +187,19 @@ void ofApp::drawGameRunning(){
 }
 
 void ofApp::drawPlayer(int lane){
-    
+    ofImage player_img = player.GetImage();
     switch (lane) {
         case 0:
             player.SetPosition(constants::kLeftPlayerX, constants::kPlayerY);
-            player_car.draw(constants::kLeftPlayerX,  constants::kPlayerY, constants::kCarWidth,constants::kCarLength);
+            player_img.draw(constants::kLeftPlayerX,  constants::kPlayerY, constants::kCarWidth,constants::kCarLength);
             break;
         case 1:
             player.SetPosition(constants::kMiddlePlayerX, constants::kPlayerY);
-            player_car.draw(constants::kMiddlePlayerX,  constants::kPlayerY, constants::kCarWidth, constants::kCarLength);
+            player_img.draw(constants::kMiddlePlayerX,  constants::kPlayerY, constants::kCarWidth, constants::kCarLength);
             break;
         case 2:
             player.SetPosition(constants::kRightPlayerX,constants::kPlayerY);
-            player_car.draw(constants::kRightPlayerX, constants::kPlayerY, constants::kCarWidth,constants::kCarLength);
+            player_img.draw(constants::kRightPlayerX, constants::kPlayerY, constants::kCarWidth,constants::kCarLength);
             break;
     }
     
@@ -266,17 +267,7 @@ void ofApp::drawUserInput(int lane){
 }
 
 void ofApp::drawFrames(int frame){
-    switch (frame) {
-        case 0:
-            first_frame.draw(0,0,constants::kMainWindowWidth, constants::kMainWindowHeight);
-            break;
-        case 1:
-            second_frame.draw(0,0,constants::kMainWindowWidth, constants::kMainWindowHeight);
-            break;
-        case 2:
-            third_frame.draw(0,0,constants::kMainWindowWidth, constants::kMainWindowHeight);
-            break;
-    }
+    frame_images[frame].draw(0,0,constants::kMainWindowWidth, constants::kMainWindowHeight);
 }
 
 void ofApp::drawObstacle(Obstacle o){
@@ -371,6 +362,7 @@ void ofApp::drawScore(){
 void ofApp::drawGameEnd(){
     large_centered_font.drawStringCentered(constants::kEndMessage, constants::kEndMessageCenterX, constants::kEndMessageCenterY);
     large_centered_font.drawStringCentered(to_string(score), constants::kEndScoreCenterX, constants::kEndScoreCenterY);
+    game_end_image.draw(400,400, game_end_image.getWidth(), game_end_image.getHeight());
     //small_centered_font.drawStringCentered("Enter Name: " + user_name, ofGetWindowWidth() / 2, ofGetWindowHeight() / 3);
     
     /*if(done_typing){

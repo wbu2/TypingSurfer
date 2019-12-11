@@ -56,6 +56,7 @@ const string kGameTitle = "Typing Surfer";
 const string kStartMessage = "Press Spacebar To Start";
 const string kEndMessage = "Game Over";
 const string kCarImagePath = "car-images";
+const string kImagePath = "images";
 
 const int kNumLanes = 3;
 const int kDownMagnitude = 34;
