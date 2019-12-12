@@ -18,3 +18,5 @@
 * The time elapsed is displayed on the top left
 * The number of words typed is displayed on the top middle
 * The score is displayed on the top right
+
+![](readme.gif)
