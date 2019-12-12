@@ -45,6 +45,14 @@ I added the score tracking system and decided to change my start screen to play 
 * Need to add scoring system
 
 ## 12/9
-I decided that I would add a leaderboard that stores the player name that can be inputted and his or her respective score into a text file. After working on this for a while I could not have the info stored and read correctly so I decided to abandon this idea. I drew the scoring system on the game screen.
+I decided that I would add a leaderboard that stores the player name that can be inputted and his or her respective score into a text file. After working on this for a while I could not have the info stored and read correctly so I decided to abandon this idea. I drew the scoring system on the game screen. Lastly, I added the catch testing framework.
 * Need to clean up code
 * Need to finish game end menu
+
+## 12/10
+I tried to push my commits but received an error that I cannot commit until I stash. I used git stash and then I was unable to open my project from xcode due to some project damaged error. To open my project I found I had to use Project Generator in Openframeworks. When I pushed my code I realized git stash was written in all my code. To solve this I created an entirely new project and copy pasted the code from my project files to the new project. 
+* Need to clean up code
+* Need to finish testing
+
+## 12/11
+I could not push my working project since my master branch had my old project. I decided that I would make a new branch and push my working project there. I wrote my tests and removed unused code. I also created additional constants and finished my game end screen. 
