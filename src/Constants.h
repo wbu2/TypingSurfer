@@ -7,6 +7,12 @@ namespace constants {
 const int kMainWindowWidth = 1280;
 const int kMainWindowHeight = 800;
 
+const int kSmallCenterTextSize = 15;
+const int kMediumCenterTextSize = 40;
+const int kLargeCenterTextSize = 80;
+
+const int kSmallFontSize = 30;
+
 const int kBaseFrameRate = 8;
 const double kDifficultyMultiplier = 1.3;
 
@@ -53,11 +59,20 @@ const int kUserInputCenterY = 780;
 
 const string kGameTitle = "Typing Surfer";
 const string kStartMessage = "Press Spacebar To Start";
+
 const string kEndMessage = "Game Over";
-const string kCarImagePath = "car-images";
+
 const string kImagePath = "images";
 
+const string kWordFile = "input.txt";
+
+const string kTrueTypeFontType = "joystix monospace.ttf";
+
+const string kCarImageLabel = "car";
+const string kFrameImageLabel = "frame";
+
 const int kNumLanes = 3;
+
 const int kDownMagnitude = 34;
 const int kDirectionMagnitude = 10;
 const double kObstacleSpeed = 0.2;

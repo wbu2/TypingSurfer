@@ -4,6 +4,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     vid_player.load("start-vid.mov");
+    
     game_end_image.load(constants::kImagePath + "/" + "game_end.png");
     
     ofDirectory dir(constants::kImagePath);
@@ -11,31 +12,30 @@ void ofApp::setup(){
     for(int i = 0; i < dir.size(); ++i){
         ofImage img;
         img.load(constants::kImagePath + "/" + dir.getName(i));
-        if (dir.getName(i).find("car") != std::string::npos) {
+        if (dir.getName(i).find(constants::kCarImageLabel) != std::string::npos) {
             car_images.push_back(img);
         }
-        if (dir.getName(i).find("frame") != std::string::npos) {
+        if (dir.getName(i).find(constants::kFrameImageLabel) != std::string::npos) {
             frame_images.push_back(img);
         }
     }
     
     player.SetImage(car_images[ofRandom(car_images.size())]);
     
-    small_font.load("joystix monospace.ttf", 30);
-    small_centered_font.load("joystix monospace.ttf", 15);
-    medium_centered_font.load("joystix monospace.ttf", 40);
-    large_centered_font.load("joystix monospace.ttf", 80);
+    small_font.load(constants::kTrueTypeFontType, constants::kSmallFontSize);
+    
+    small_centered_font.load(constants::kTrueTypeFontType, constants::kSmallCenterTextSize);
+    medium_centered_font.load(constants::kTrueTypeFontType, constants::kMediumCenterTextSize);
+    large_centered_font.load(constants::kTrueTypeFontType, constants::kLargeCenterTextSize);
     
     user_input = "";
     
-    reader.ReadWords("input.txt");
+    reader.ReadWords(constants::kWordFile);
     
     for(int i = 0; i< constants::kNumLanes; ++i){
         Lane l;
         lanes.push_back(l);
     }
-    
-    
     
 }
 
@@ -93,12 +93,6 @@ void ofApp::keyPressed(int key){
                 user_input.pop_back(); //removes the desired last letter
             }
             break;
-        case ENDED:
-            
-            if(key == 'r'){
-                current_state = START_SCREEN;
-            }
-            break;
     }
 }
 
@@ -149,7 +143,7 @@ void ofApp::DrawLane(){
     
     if(lanes[0].GetWord().size() == 0){
         for(int i = 0; i<lanes.size(); ++i){
-            lanes[i].SetWord(reader.GetFileWords()[ofRandom(reader.GetFileWords().size())]);
+            lanes[i].SetWord(reader.GetFileWords()[rng]);
             DrawDisplayWords(i, lanes[i].GetWord());
             DrawUserInput(player.GetLane());
         }
@@ -160,7 +154,7 @@ void ofApp::DrawLane(){
             if(lanes[i].GetWord() == user_input && abs(player.GetLane() - i) < constants::kNumLanes - 1){
                 user_input.clear();
                 words_typed++;
-                lanes[i].SetWord(reader.GetFileWords()[ofRandom(reader.GetFileWords().size())]);
+                lanes[i].SetWord(reader.GetFileWords()[rng]);
                 player.SetLane(i); //change car lane
             }
         }
