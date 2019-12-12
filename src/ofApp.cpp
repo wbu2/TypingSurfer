@@ -6,7 +6,6 @@ void ofApp::setup(){
     vid_player.load("start-vid.mov");
     game_end_image.load(constants::kImagePath + "/" + "game_end.png");
     
-    
     ofDirectory dir(constants::kImagePath);
     dir.listDir();
     for(int i = 0; i < dir.size(); ++i){
@@ -97,25 +96,7 @@ void ofApp::keyPressed(int key){
             }
             break;
         case ENDED:
-            /*user_name += (char) key;
-            if(key == OF_KEY_BACKSPACE){
-                user_name.pop_back();
-                user_name.pop_back();
-            }*/
-            /*if(key == OF_KEY_RETURN){
-             map<int, string, greater<int>> leaderboard = CreateLeaderboard();
-             string score_board_string = "";
-             map<int,string> :: iterator it;
-             for (it=leaderboard.begin() ; it!=leaderboard.end() ; it++){
-             score_board_string = score_board_string + (*it).second + to_string((*it).first);
-             cout << score_board_string << endl;
-             }
-             string write_line = to_string(score) + user_name;
-             
-             score_board << write_line;
-             score_board << score_board_string;
-             done_typing = true;
-             }*/
+            
             if(key == 'r'){
                 current_state = START_SCREEN;
             }
@@ -285,16 +266,6 @@ bool ofApp::Collided(Obstacle o, Player p){
 }
 
 void ofApp::drawRandomObstacle(){
-    /*
-     if current_obstale.size == 0
-     add obstacle to random lane
-     
-     if reached halfway
-     add new random obstacle
-     else
-     draw current obstacles
-     */
-    
     if(current_obstacles.empty()){
         Obstacle o;
         o.SetLane(ofRandom(constants::kNumLanes));
@@ -322,6 +293,7 @@ void ofApp::drawRandomObstacle(){
         iterator++;
         
     }
+    
     for(Obstacle o : current_obstacles){
         drawObstacle(o);
     }
@@ -360,14 +332,10 @@ void ofApp::drawScore(){
 }
 
 void ofApp::drawGameEnd(){
+    game_end_image.draw(400,0, game_end_image.getWidth(), game_end_image.getHeight());
     large_centered_font.drawStringCentered(constants::kEndMessage, constants::kEndMessageCenterX, constants::kEndMessageCenterY);
     large_centered_font.drawStringCentered(to_string(score), constants::kEndScoreCenterX, constants::kEndScoreCenterY);
-    game_end_image.draw(400,400, game_end_image.getWidth(), game_end_image.getHeight());
-    //small_centered_font.drawStringCentered("Enter Name: " + user_name, ofGetWindowWidth() / 2, ofGetWindowHeight() / 3);
     
-    /*if(done_typing){
-     drawLeaderboard();
-     }*/
 }
 
 void ofApp::IncreaseDifficulty(){
@@ -375,29 +343,3 @@ void ofApp::IncreaseDifficulty(){
     cout << ofGetFrameRate() << endl;
 }
 
-/*map<int,string, greater<int>> ofApp::CreateLeaderboard(){
- map<int, string, greater<int>> score_entries;
- reader.ClearWords();
- reader.ReadWords("leaderboard.txt");
- 
- score_entries.insert(pair<int, string>(score, user_name));
- for(int i = 0; i < reader.GetFileWords().size(); ++i){
- int score = stoi(reader.GetFileWords()[i]);
- string name = reader.GetFileWords()[i].erase(0,to_string(score).length());
- score_entries.insert(pair<int, string>(score, name));
- }
- 
- return score_entries;
- }*/
-
-/*void ofApp::drawLeaderboard(){
- map<int, string, greater<int>> leaderboard = CreateLeaderboard();
- string score_board_string = "";
- map<int,string> :: iterator it;
- for (it=leaderboard.begin() ; it!=leaderboard.end() ; it++){
- score_board_string = score_board_string + (*it).second + ": " + to_string((*it).first) + "\n";
- cout << score_board_string << endl;
- }
- 
- small_centered_font.drawStringCentered(score_board_string, ofGetWindowWidth() / 2, ofGetWindowHeight() / 2);
- }*/

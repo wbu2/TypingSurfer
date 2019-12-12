@@ -80,7 +80,5 @@ public:
     void UpdateObstacle(Obstacle &o);
     void drawScore();
     void drawGameEnd();
-    //map<int,string, greater<int>> CreateLeaderboard();
-    //void drawLeaderboard();
     void IncreaseDifficulty();
 };
