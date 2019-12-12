@@ -37,3 +37,6 @@ I decided that I would randomize by adding an obstacle after the first osbstacle
 * Need to make game end menu
 * Need to add stylistic touches such as buttons
 * Need to add scoring system
+
+## 12/8
+I added the score tracking system and decided to change my start screen to play a video. I started to clean my code by creating a constants header file and creating constants. I also added the rule that the player cannot jump lanes.
