@@ -40,3 +40,11 @@ I decided that I would randomize by adding an obstacle after the first osbstacle
 
 ## 12/8
 I added the score tracking system and decided to change my start screen to play a video. I started to clean my code by creating a constants header file and creating constants. I also added the rule that the player cannot jump lanes.
+* Need to clean up code
+* Need to finish game end menu
+* Need to add scoring system
+
+## 12/9
+I decided that I would add a leaderboard that stores the player name that can be inputted and his or her respective score into a text file. After working on this for a while I could not have the info stored and read correctly so I decided to abandon this idea. I drew the scoring system on the game screen.
+* Need to clean up code
+* Need to finish game end menu
