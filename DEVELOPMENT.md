@@ -55,4 +55,4 @@ I tried to push my commits but received an error that I cannot commit until I st
 * Need to finish testing
 
 ## 12/11
-I could not push my working project since my master branch had my old project. I decided that I would make a new branch and push my working project there. I wrote my tests and removed unused code. I also created additional constants and finished my game end screen. I wrote my Readme and moved my Proposal to my master branch.
+I could not push my working project since my master branch had my old project. I decided that I would make a new branch and push my working project there. I wrote my tests and removed unused code. I also created additional constants and finished my game end screen. I created a reset button. I wrote my Readme and moved my Proposal to my master branch.
