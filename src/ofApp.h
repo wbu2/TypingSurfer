@@ -18,20 +18,11 @@ private:
     GameState current_state = START_SCREEN;
     int words_typed = 0;
     int score = 0;
-
+    
     ofImage game_end_image;
-    
-    ofImage player_car;
-    
-    ofImage first_frame;
-    ofImage second_frame;
-    ofImage third_frame;
-    
-    ofFile score_board;
     
     ofVideoPlayer vid_player;
     
-    ofTrueTypeFont default_font;
     ofTrueTypeFont small_font;
     
     ofxCenteredTrueTypeFont small_centered_font;
@@ -49,23 +40,14 @@ private:
     
     FileReader reader;
     
-
-
+    
+    
     
 public:
-        void setup();
-        void update();
-        void draw();
-
-        void keyPressed(int key);
-        void keyReleased(int key);
-        void mouseMoved(int x, int y );
-        void mouseDragged(int x, int y, int button);
-        void mousePressed(int x, int y, int button);
-        void mouseReleased(int x, int y, int button);
-        void mouseEntered(int x, int y);
-        void mouseExited(int x, int y);
-        void windowResized(int w, int h);
+    void setup();
+    void update();
+    void draw();
+    void keyPressed(int key);
     void drawGameStart();
     void drawGameRunning();
     void drawLaneMarkers();

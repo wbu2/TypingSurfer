@@ -691,8 +691,8 @@
 		FA6675CE23A1730B00626F0A /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				FA6675D423A1743F00626F0A /* tests-main.cpp */,
 				FA6675D623A1759A00626F0A /* catch.hpp */,
+				FA6675D423A1743F00626F0A /* tests-main.cpp */,
 				FA6675D723A1761000626F0A /* test.cpp */,
 			);
 			path = tests;

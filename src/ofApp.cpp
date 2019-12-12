@@ -19,10 +19,8 @@ void ofApp::setup(){
         }
     }
     
-    player_car = car_images[ofRandom(car_images.size())];
     player.SetImage(car_images[ofRandom(car_images.size())]);
     
-    default_font.load("joystix monospace.ttf", 70);
     small_font.load("joystix monospace.ttf", 30);
     small_centered_font.load("joystix monospace.ttf", 15);
     medium_centered_font.load("joystix monospace.ttf", 40);
@@ -103,48 +101,6 @@ void ofApp::keyPressed(int key){
             break;
     }
 }
-
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-    
-}
-
-//--------------------------------------------------------------
 
 void ofApp::drawGameStart(){
     vid_player.setLoopState(OF_LOOP_NORMAL);
