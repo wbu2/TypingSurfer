@@ -1,5 +1,5 @@
 #include <Obstacle.h>
-
+#include <Constants.h>
 
 ofVec2f Obstacle::GetPosition(){
     return position;
@@ -23,12 +23,12 @@ void Obstacle::SetImage(ofImage img){
 }
 
 bool Obstacle::ReachedHalfway(){
-    int halfway = ofGetWindowHeight() / 2;
+    int halfway = constants::kMainWindowHeight / 2;
     return position.y > halfway && position.y < halfway + 5;
 }
 
 bool Obstacle::ReachedEnd(){
-    int end = ofGetWindowHeight();
+    int end = constants::kMainWindowHeight;
     return position.y > end;
 }
 

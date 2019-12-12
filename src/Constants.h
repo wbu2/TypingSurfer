@@ -8,8 +8,7 @@ const int kMainWindowWidth = 1280;
 const int kMainWindowHeight = 800;
 
 const int kBaseFrameRate = 8;
-const int kDifficultyIncreaseTime = 2;
-const int kDifficultyMultiplier = 2;
+const double kDifficultyMultiplier = 1.3;
 
 const int kStartScreenVideoX = 0;
 const int kStartScreenVideoY = 0;

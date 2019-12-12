@@ -65,13 +65,13 @@ void ofApp::draw(){
     switch (current_state) {
         case START_SCREEN:
             
-            drawGameStart();
+            DrawGameStart();
             break;
         case RUNNING:
-            drawGameRunning();
+            DrawGameRunning();
             break;
         case ENDED:
-            drawGameEnd();
+            DrawGameEnd();
             break;
     }
     
@@ -102,7 +102,7 @@ void ofApp::keyPressed(int key){
     }
 }
 
-void ofApp::drawGameStart(){
+void ofApp::DrawGameStart(){
     vid_player.setLoopState(OF_LOOP_NORMAL);
     vid_player.play();
     vid_player.draw(constants::kStartScreenVideoX, constants::kStartScreenVideoY, constants::kMainWindowWidth, constants::kMainWindowHeight);
@@ -112,37 +112,33 @@ void ofApp::drawGameStart(){
     
 }
 
-void ofApp::drawGameRunning(){
+void ofApp::DrawGameRunning(){
     
-    drawFrames(ofRandom(constants::kNumLanes));
-    
-    drawPlayer(player.GetLane());
-    drawLane();
-    drawRandomObstacle();
-    drawScore();
+    DrawFrames(ofRandom(constants::kNumLanes));
+    DrawRandomObstacle();
+    UpdatePlayerPosition(player.GetLane(), player);
+    DrawPlayer(player.GetLane());
+    DrawLane();
+    DrawScore();
     
 }
 
-void ofApp::drawPlayer(int lane){
+void ofApp::DrawPlayer(int lane){
     ofImage player_img = player.GetImage();
     switch (lane) {
         case 0:
-            player.SetPosition(constants::kLeftPlayerX, constants::kPlayerY);
             player_img.draw(constants::kLeftPlayerX,  constants::kPlayerY, constants::kCarWidth,constants::kCarLength);
             break;
         case 1:
-            player.SetPosition(constants::kMiddlePlayerX, constants::kPlayerY);
             player_img.draw(constants::kMiddlePlayerX,  constants::kPlayerY, constants::kCarWidth, constants::kCarLength);
             break;
         case 2:
-            player.SetPosition(constants::kRightPlayerX,constants::kPlayerY);
             player_img.draw(constants::kRightPlayerX, constants::kPlayerY, constants::kCarWidth,constants::kCarLength);
             break;
     }
-    
 }
 
-void ofApp::drawLane(){
+void ofApp::DrawLane(){
     /*
      assign each lane a random word
      loop through each lane words
@@ -154,13 +150,13 @@ void ofApp::drawLane(){
     if(lanes[0].GetWord().size() == 0){
         for(int i = 0; i<lanes.size(); ++i){
             lanes[i].SetWord(reader.GetFileWords()[ofRandom(reader.GetFileWords().size())]);
-            drawDisplayWords(i, lanes[i].GetWord());
-            drawUserInput(player.GetLane());
+            DrawDisplayWords(i, lanes[i].GetWord());
+            DrawUserInput(player.GetLane());
         }
     }else{
         for(int i = 0; i<lanes.size(); ++i){
-            drawUserInput(player.GetLane());
-            drawDisplayWords(i, lanes[i].GetWord()); //draw words user must type
+            DrawUserInput(player.GetLane());
+            DrawDisplayWords(i, lanes[i].GetWord()); //draw words user must type
             if(lanes[i].GetWord() == user_input && abs(player.GetLane() - i) < constants::kNumLanes - 1){
                 user_input.clear();
                 words_typed++;
@@ -171,7 +167,7 @@ void ofApp::drawLane(){
     }
 }
 
-void ofApp::drawDisplayWords(int lane, string word){
+void ofApp::DrawDisplayWords(int lane, string word){
     ofSetColor(ofColor::black);
     switch (lane) {
         case 0:
@@ -187,7 +183,7 @@ void ofApp::drawDisplayWords(int lane, string word){
     ofSetColor(ofColor::white);
 }
 
-void ofApp::drawUserInput(int lane){
+void ofApp::DrawUserInput(int lane){
     ofSetColor(ofColor::black);
     switch (lane) {
         case 0:
@@ -203,11 +199,11 @@ void ofApp::drawUserInput(int lane){
     ofSetColor(ofColor::white);
 }
 
-void ofApp::drawFrames(int frame){
+void ofApp::DrawFrames(int frame){
     frame_images[frame].draw(0,0,constants::kMainWindowWidth, constants::kMainWindowHeight);
 }
 
-void ofApp::drawObstacle(Obstacle o){
+void ofApp::DrawObstacle(Obstacle o){
     if(o.GetPosition().x != 0){
         o.GetImage().draw(o.GetPosition(), constants::kCarWidth, constants::kCarLength);
     }
@@ -221,7 +217,7 @@ bool ofApp::Collided(Obstacle o, Player p){
     return false;
 }
 
-void ofApp::drawRandomObstacle(){
+void ofApp::DrawRandomObstacle(){
     if(current_obstacles.empty()){
         Obstacle o;
         o.SetLane(ofRandom(constants::kNumLanes));
@@ -251,7 +247,7 @@ void ofApp::drawRandomObstacle(){
     }
     
     for(Obstacle o : current_obstacles){
-        drawObstacle(o);
+        DrawObstacle(o);
     }
     
 }
@@ -275,7 +271,7 @@ void ofApp::UpdateObstacle(Obstacle &o){
     }
 }
 
-void ofApp::drawScore(){
+void ofApp::DrawScore(){
     ofSetColor(ofColor::black);
     
     small_font.drawString(to_string((int)ofGetElapsedTimef()/60) + ":" + to_string((int)ofGetElapsedTimef()), constants::kTimerX, constants::kLiveTrackerY);
@@ -287,7 +283,7 @@ void ofApp::drawScore(){
     ofSetColor(ofColor::white);
 }
 
-void ofApp::drawGameEnd(){
+void ofApp::DrawGameEnd(){
     game_end_image.draw(400,0, game_end_image.getWidth(), game_end_image.getHeight());
     large_centered_font.drawStringCentered(constants::kEndMessage, constants::kEndMessageCenterX, constants::kEndMessageCenterY);
     large_centered_font.drawStringCentered(to_string(score), constants::kEndScoreCenterX, constants::kEndScoreCenterY);
@@ -295,7 +291,19 @@ void ofApp::drawGameEnd(){
 }
 
 void ofApp::IncreaseDifficulty(){
-    ofSetFrameRate( constants::kDifficultyMultiplier * ofGetElapsedTimef() * ofGetElapsedTimef() + constants::kBaseFrameRate);
-    cout << ofGetFrameRate() << endl;
+    ofSetFrameRate( constants::kDifficultyMultiplier * ofGetElapsedTimef() + constants::kBaseFrameRate);
 }
 
+void ofApp::UpdatePlayerPosition(int lane, Player &p){
+    switch (lane) {
+        case 0:
+            p.SetPosition(constants::kLeftPlayerX, constants::kPlayerY);
+            break;
+        case 1:
+            player.SetPosition(constants::kMiddlePlayerX, constants::kPlayerY);
+            break;
+        case 2:
+            player.SetPosition(constants::kRightPlayerX,constants::kPlayerY);
+            break;
+    }
+}
