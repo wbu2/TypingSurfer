@@ -51,7 +51,9 @@ const int kEndMessageCenterX = 640;
 const int kEndMessageCenterY = 450;
 
 const int kEndScoreCenterX = 640;
-const int kEndScoreCenterY = 650;
+const int kEndScoreCenterY = 600;
+
+const int kRestartInstructionY = 700;
 
 const int kEndImageX = 400;
 
@@ -61,6 +63,7 @@ const int kUserInputCenterY = 780;
 
 const string kGameTitle = "Typing Surfer";
 const string kStartMessage = "Press Spacebar To Start";
+const string kRestartInstruction = "Press r To Restart";
 
 const string kEndMessage = "Game Over";
 

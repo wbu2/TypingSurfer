@@ -15,4 +15,5 @@ public:
     void SetPosition(int x, int y);
     ofImage GetImage();
     void SetImage(ofImage image);
+    void Reset();
 };

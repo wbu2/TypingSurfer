@@ -93,6 +93,11 @@ void ofApp::keyPressed(int key){
                 user_input.pop_back(); //removes the desired last letter
             }
             break;
+        case ENDED:
+            if (key == 'r') {
+                Reset();
+                current_state = START_SCREEN;
+            }
     }
 }
 
@@ -281,6 +286,7 @@ void ofApp::DrawGameEnd(){
     game_end_image.draw(constants::kEndImageX ,0, game_end_image.getWidth(), game_end_image.getHeight());
     large_centered_font.drawStringCentered(constants::kEndMessage, constants::kEndMessageCenterX, constants::kEndMessageCenterY);
     large_centered_font.drawStringCentered(to_string(score), constants::kEndScoreCenterX, constants::kEndScoreCenterY);
+    medium_centered_font.drawStringCentered(constants::kRestartInstruction, constants::kEndScoreCenterX, constants::kRestartInstructionY);
     
 }
 
@@ -300,4 +306,13 @@ void ofApp::UpdatePlayerPosition(int lane, Player &p){
             player.SetPosition(constants::kRightPlayerX,constants::kPlayerY);
             break;
     }
+}
+
+void ofApp::Reset(){
+    words_typed = 0;
+    score = 0;
+    current_obstacles.clear();
+    user_input.clear();
+    player.Reset();
+    ofResetElapsedTimeCounter();
 }

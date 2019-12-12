@@ -64,4 +64,5 @@ public:
     void DrawGameEnd();
     void IncreaseDifficulty();
     void UpdatePlayerPosition(int lane, Player &p);
+    void Reset();
 };

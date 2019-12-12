@@ -23,3 +23,8 @@ ofImage Player::GetImage(){
 void Player::SetImage(ofImage img){
     image = img;
 }
+
+void Player::Reset(){
+    position.zero();
+
+}
