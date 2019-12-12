@@ -109,9 +109,9 @@ void ofApp::DrawGameStart(){
 void ofApp::DrawGameRunning(){
     
     DrawFrames(ofRandom(constants::kNumLanes));
-    DrawRandomObstacle();
     UpdatePlayerPosition(player.GetLane(), player);
     DrawPlayer(player.GetLane());
+    DrawRandomObstacle();
     DrawLane();
     DrawScore();
     
@@ -139,11 +139,11 @@ void ofApp::DrawLane(){
      if word == user_input then change word and change car direction
      word count: 370103
      */
-    int rng = ofRandom(reader.GetFileWords().size());
+    int word_count = reader.GetFileWords().size();
     
     if(lanes[0].GetWord().size() == 0){
         for(int i = 0; i<lanes.size(); ++i){
-            lanes[i].SetWord(reader.GetFileWords()[rng]);
+            lanes[i].SetWord(reader.GetFileWords()[ofRandom(word_count)]);
             DrawDisplayWords(i, lanes[i].GetWord());
             DrawUserInput(player.GetLane());
         }
@@ -154,7 +154,7 @@ void ofApp::DrawLane(){
             if(lanes[i].GetWord() == user_input && abs(player.GetLane() - i) < constants::kNumLanes - 1){
                 user_input.clear();
                 words_typed++;
-                lanes[i].SetWord(reader.GetFileWords()[rng]);
+                lanes[i].SetWord(reader.GetFileWords()[ofRandom(word_count)]);
                 player.SetLane(i); //change car lane
             }
         }
@@ -278,7 +278,7 @@ void ofApp::DrawScore(){
 }
 
 void ofApp::DrawGameEnd(){
-    game_end_image.draw(400,0, game_end_image.getWidth(), game_end_image.getHeight());
+    game_end_image.draw(constants::kEndImageX ,0, game_end_image.getWidth(), game_end_image.getHeight());
     large_centered_font.drawStringCentered(constants::kEndMessage, constants::kEndMessageCenterX, constants::kEndMessageCenterY);
     large_centered_font.drawStringCentered(to_string(score), constants::kEndScoreCenterX, constants::kEndScoreCenterY);
     

@@ -48,10 +48,12 @@ const int kScoreX = 1000;
 const int kLiveTrackerY = 50;
 
 const int kEndMessageCenterX = 640;
-const int kEndMessageCenterY = 350;
+const int kEndMessageCenterY = 450;
 
 const int kEndScoreCenterX = 640;
-const int kEndScoreCenterY = 500;
+const int kEndScoreCenterY = 650;
+
+const int kEndImageX = 400;
 
 const int kWordsTypedScoreWeight = 10;
 
